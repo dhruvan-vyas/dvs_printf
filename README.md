@@ -77,11 +77,17 @@ each style type works differently according to description below
  you can set `speed from ( 1 to 6 )`
 
 *1 = Very Slow* 
+
 *2 = Slow*
+
 *3 = Mediam*
+
 *4 = Mediam Fast*
+
 *5 = Fast*
+
 *6 = Very Fast*
+
 
 ``` python
 printf("hello world", speed=2)
