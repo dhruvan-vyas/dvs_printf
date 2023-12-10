@@ -57,7 +57,7 @@ printf(str, list, [tuple, set], dict, int,...)
 
 ### styl
 
-(https://github/dhruvan-vyas/ds_printf#dvs_printf)
+[https://github/dhruvan-vyas/ds_printf#dvs_printf]
 
 styl is different types of print animetion
 each style type works differently according to description below
@@ -83,7 +83,11 @@ each style type works differently according to description below
 
 ### speed
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/f85f53d4-b0a7-49da-a1df-53be9f36a771
+
+
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/5055e3cf-409a-4995-b4ea-37ad3f3e28cc
+
+
 
  Speed is printf's animetion speed, `defult speed is 3` <br> 
  you can set `speed from ( 1 to 6 )`
