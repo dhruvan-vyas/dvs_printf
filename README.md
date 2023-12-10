@@ -11,6 +11,9 @@ just copy and past oneliner command on Terminal
 
 ### Linux / macOS 
 ```bash
+pip3 install dvs_printf
+```
+```bash
 python3 -m pip install dvs_printf
 ```
 
