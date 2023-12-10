@@ -3,6 +3,8 @@
 simple pritning animetion styles for python Project
 
 ***
+<img width="858" alt="Screenshot 2023-12-11 at 12 20 22 AM" src="https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/14d3a472-000e-401f-9360-2112925a46d1">
+
 
 ## Installation with python (pip)
 
