@@ -8,6 +8,31 @@ simple pritning animetion styles for python Project
   <source src="https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/9df73465-d8ae-4d64-a53f-c859ac03aeb6" type="video/ogg">
   Your browser does not support the video tag.
 </video>
+
+
+
+<script>
+const myVideo = document.getElementById('my-video');
+
+// Not all browsers return promise from .play().
+const playPromise = myVideo.play() || Promise.reject('');
+playPromise.then(() => {
+// Video could be autoplayed, do nothing.
+}).catch(err => {
+// Video couldn't be autoplayed because of autoplay policy. Mute it and play.
+myVideo.muted = true;
+myVideo.play();
+});
+
+</script>
+
+
+
+
+ <video class="top-video" id="my-video" autoplay loop muted playsinline>
+         <source src="https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/9df73465-d8ae-4d64-a53f-c859ac03aeb6" type="video/mp4">
+  </video>
+  
 ***
 
 
