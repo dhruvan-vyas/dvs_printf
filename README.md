@@ -57,7 +57,7 @@ printf(str, list, [tuple, set], dict, int,...)
 
 ### styl
 
-[Style Video](https://github/dhruvan-vyas/ds_printf#dvs_printf)
+[Style Video](#dvs_printf)
 
 styl is different types of print animetion
 each style type works differently according to description below
