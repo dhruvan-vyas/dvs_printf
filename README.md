@@ -99,7 +99,7 @@ intervel is waiting time between printing
 of two lines (intervel in second)
 `defult intervel is 2`, 
 
-##### you can set intervel from `0 to 10 or greater` 
+you can set intervel from `0 to 10 or greater` 
 ``` python
     printf("hello world", "hii I am coder", intervel=2)
    
