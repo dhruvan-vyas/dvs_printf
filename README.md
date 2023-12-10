@@ -2,8 +2,12 @@
 
 simple pritning animetion styles for python Project
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/9df73465-d8ae-4d64-a53f-c859ac03aeb6
 
+<video controls autoplay>
+  <source src="https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/9df73465-d8ae-4d64-a53f-c859ac03aeb6" type="video/mp4">
+  <source src="https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/9df73465-d8ae-4d64-a53f-c859ac03aeb6" type="video/ogg">
+  Your browser does not support the video tag.
+</video>
 ***
 
 
