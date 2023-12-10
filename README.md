@@ -2,6 +2,7 @@
 
 simple pritning animetion styles for python Project
 
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/efd02b0f-6c83-4d5b-b759-75ea036c5467
 
 ***
 
@@ -55,6 +56,9 @@ printf(str, list, [tuple, set], dict, int,...)
 ```     
 
 ### styl
+
+(https://github/dhruvan-vyas/ds_printf#dvs_printf)
+
 styl is different types of print animetion
 each style type works differently according to description below
 
@@ -78,6 +82,9 @@ each style type works differently according to description below
 
 
 ### speed
+
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/f85f53d4-b0a7-49da-a1df-53be9f36a771
+
  Speed is printf's animetion speed, `defult speed is 3` <br> 
  you can set `speed from ( 1 to 6 )`
 
@@ -100,21 +107,24 @@ printf("hello world", speed=2)
 
 
 ### intervel
+
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/4222cfac-a1fa-48d1-8d9d-6f7b26789c3b
+
 intervel is waiting time between printing 
 of two lines (intervel in second)
 `defult intervel is 2`, 
 
 you can set intervel from `0 to 10 or greater` 
 ``` python
-    printf("hello world", "hii I am coder", intervel=2)
+printf("hello world", "hii I am coder", intervel=4)
    
-    >>> hello world
-
-    (Then wating time of intervel time in second)
-
-    >>> hii I am coder
-
+>>> hello world
+(Then wating time of intervel time in second)
+>>> hii I am coder
 ```
+
+
+
 
 
 
