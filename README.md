@@ -83,12 +83,6 @@ each style type works differently according to description below
 
 ### speed
 
-
-
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/5055e3cf-409a-4995-b4ea-37ad3f3e28cc
-
-
-
  Speed is printf's animetion speed, `defult speed is 3` <br> 
  you can set `speed from ( 1 to 6 )`
 
@@ -109,10 +103,10 @@ https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/5055e3cf-409a-4995-b4
 printf("hello world", speed=2)
 ```
 
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/5055e3cf-409a-4995-b4ea-37ad3f3e28cc
 
 ### intervel
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/4222cfac-a1fa-48d1-8d9d-6f7b26789c3b
 
 intervel is waiting time between printing 
 of two lines (intervel in second)
@@ -127,7 +121,7 @@ printf("hello world", "hii I am coder", intervel=4)
 >>> hii I am coder
 ```
 
-
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/4222cfac-a1fa-48d1-8d9d-6f7b26789c3b
 
 
 
@@ -146,6 +140,10 @@ whether it is `True OR False`. it works as it should be.
 ```python
 printf("hello world", styl="headline", stay=True)
 ```
+
+
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/47f4840e-65ac-477f-9362-2659f3d93177
+
 
 
 # listfunction
