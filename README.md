@@ -142,7 +142,11 @@ printf("hello world", styl="headline", stay=True)
 ```
 
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/47f4840e-65ac-477f-9362-2659f3d93177
+
+
+https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/b8b966b1-f968-4d0e-bac2-43e60a84b0ce
+
+
 
 
 
