@@ -73,16 +73,15 @@ each style type works differently according to description below
 
 
 ### speed
-Speed is printf's animetion speed, `defult speed is 3`
+ Speed is printf's animetion speed, `defult speed is 3` <br> 
+ you can set `speed from ( 1 to 6 )`
 
-#### you can set `speed from ( 1 to 6 )`
-
-##### *1 = Very Slow* 
-##### *2 = Slow*
-##### *3 = Mediam*
-##### *4 = Mediam Fast*
-##### *5 = Fast*
-##### *6 = Very Fast*
+*1 = Very Slow* 
+*2 = Slow*
+*3 = Mediam*
+*4 = Mediam Fast*
+*5 = Fast*
+*6 = Very Fast*
 
 ``` python
 printf("hello world", speed=2)
