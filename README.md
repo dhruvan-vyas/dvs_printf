@@ -2,11 +2,7 @@
 
 simple pritning animetion styles for python Project
 
-<video controls autoplay>
 https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/9df73465-d8ae-4d64-a53f-c859ac03aeb6
-</video>
-
-
 
 ***
 
