@@ -2,7 +2,6 @@
 
 simple pritning animetion styles for python Project
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/efd02b0f-6c83-4d5b-b759-75ea036c5467
 
 ***
 
@@ -103,7 +102,6 @@ each style type works differently according to description below
 printf("hello world", speed=2)
 ```
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/5055e3cf-409a-4995-b4ea-37ad3f3e28cc
 
 ### intervel
 
@@ -121,7 +119,7 @@ printf("hello world", "hii I am coder", intervel=4)
 >>> hii I am coder
 ```
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/4222cfac-a1fa-48d1-8d9d-6f7b26789c3b
+
 
 
 
@@ -144,7 +142,6 @@ printf("hello world", styl="headline", stay=True)
 
 
 
-https://github.com/dhruvan-vyas/dvs_printf/assets/98950841/b8b966b1-f968-4d0e-bac2-43e60a84b0ce
 
 
 
