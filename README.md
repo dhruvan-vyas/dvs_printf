@@ -1,23 +1,3 @@
-
-<br><br>
-<div class="UpperTitle">
-    <a href="https://github.com/dhruvan-vyas/dvs_printf">
-        <img src="https://desktop.github.com/images/desktop-icon.svg" align="absmiddle" 
-        padding-right: 10px;
-        text-align: center;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        background-color: #CEDEF4;
-        font-weight:bold;
-        color: #224499;
-        border-radius: 10px;
-        />
-    dvs_printf - GitHub
-    </a>
-</div>
-<br>
-
-
 # dvs_printf 
 
 simple pritning animetion styles for python Project
