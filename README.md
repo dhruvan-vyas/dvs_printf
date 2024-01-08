@@ -1,9 +1,6 @@
 # dvs_printf 
 
-
-<div align="absmiddle"> 
-<h3>simple pritning animetion styles for python Project</h3>
-</div> 
+simple pritning animetion styles for python Project
 
 ***
 
