@@ -1,6 +1,50 @@
 # dvs_printf 
 
-simple pritning animetion styles for python Project
+
+<section class="hidden">
+    <div><h3>simple pritning animetion styles for python Project</h3></div> 
+</section> 
+<section class="hidden">
+    <div class="main" align="center">
+        <div class="glow"></div>
+        <div class="behind" align="absmiddle">
+            <div class="shadowimg1"></div><div class="shadowimg2"></div><div class="shadowtext1"></div><div class="shadowtext2"></div>
+            <div class="github-repo" align="absmiddle"><a style="text-decoration:none" href="https://github.com/dhruvan-vyas/dvs_printf"><img class="git_img" src="https://desktop.github.com/images/desktop-icon.svg" align="absmiddle"/><mark class="git_text">dvs_printf GitHub</mark></a></div>
+            <div class="github-repo" align="absmiddle"><a style="text-decoration:none" href="https://github.com/dhruvan-vyas/dvs_printf"><mark class="git_text_in">dvs_printf GitHub</mark><img class="git_img_in" src="https://desktop.github.com/images/desktop-icon.svg" align="absmiddle"/></a></div>
+        </div>
+    <style>
+        .shadowimg1{height:120px;width:120px;background-color:rgba(8,1,11,0.5);position:absolute;z-index:-1;margin-top:4px;margin-left:6px;border-radius:100px;filter:blur(10px);} 
+        .shadowimg2{left:320px;top:130px;height:120px;width:120px;background-color:rgba(8,1,11,0.5);position:absolute;z-index:-1;margin-top:4px;margin-left:6px;border-radius:100px;filter:blur(10px);}
+        .shadowtext1{height:85px;width:240px;background-color:rgba(8,1,11,0.5);position:absolute;z-index:-1;margin-top:25px;margin-left:179px;border-radius:20px;filter:blur(10px);} 
+        .shadowtext2{height:85px;width:240px;background-color:rgba(8,1,11,0.5);position:absolute;z-index:-1;margin-top:153px;margin-left:8px;border-radius:20px;filter:blur(10px);}
+        .main{padding-top:40px;padding-bottom:40px;padding-right:39px;background-repeat:repeat;position:relative;}
+        mark{padding-right:40px;padding-left:40px;text-align:right;padding-top:32px;padding-bottom:30px;background-color:#CEDEF4;font-weight:600;font-size: 20px;color:#224499;border-radius:20px;}
+        .glow {border-color: white;background-image:radial-gradient(#ffffff 1%, transparent 20%),radial-gradient(#ffffff 1%, transparent 20%);background-size:6px 6px;background-position: 0 0, 3px 3px;background-color:rgba(77,10,106,.6);border-radius:8px;height:256px;width:480px;display:inline-block;position:absolute;display:relative;z-index:-5;}
+        .behind{display:inline-block;padding-left:35px;position:relative;display:relative;} 
+        .git_img{margin-right:20px;} 
+        .git_text{margin-left:20px;} 
+        .git_img_in{margin-left:20px;} 
+        .git_text_in{margin-right:20px;} 
+    </style>
+    </div> 
+</section> 
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap");
+section{display: grid;place-items: center;align-content: center;min-height: 40vh;}
+.hidden{opacity: 0;transition: all 2s;}
+.show{opacity: 1;}
+
+</style> 
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry)=>{console.log(entry)
+        if (entry.isIntersecting){entry.target.classList.add('show')
+        } else {entry.target.classList.remove('show')}
+    });
+});
+const hiddenElements = document.querySelectorAll('.hidden');
+hiddenElements.forEach((el) => observer.observe(el));
+</script>
 
 
 ***
