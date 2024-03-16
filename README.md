@@ -38,7 +38,7 @@ by using printf's styl animetion function you can print you stream in uniq style
 ``` python
 from dvs_printf import printf
 
-printf(*values, styl='typing', speed=3, intervel=2, stay=True)
+printf(*values, styl='typing', speed=3, intervel=2, stay=True  getmat=False) # defults
 ```
 
 
