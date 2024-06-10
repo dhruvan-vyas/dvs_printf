@@ -1,0 +1,46 @@
+name: Module Test
+
+on: 
+  [push]
+
+jobs:
+  run-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest] 
+        python-version: 
+          - "3.10" 
+          - "3.11"
+          - "3.12"
+          
+    name: Test
+    runs-on:  ${{ matrix.os }}
+    
+    env:
+      MODE: "dev"
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dpendencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install pytest setuptools>=42.0.0
+          pip3 install .
+          pip3 install numpy torch pandas
+
+      - name: Install TensorFlow
+        shell: python
+        run: |
+          try:import os;os.system('pip3 install tensorflow')
+          except:pass
+
+      - name: Run Test
+        run: pytest 
