@@ -1,0 +1,8 @@
+graft dvs_printf
+graft tests
+include pyproject.toml
+include setup.py
+include LICENSE
+include README.md
+include card.png
+global-exclude *.py[cod]
