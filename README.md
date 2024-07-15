@@ -101,9 +101,7 @@ printf(str, list, [tuple, set], dict, int, float, any,...)
 style defins different types of console based output animation.<br>
 each style type works differently according to the description below
 
-
-Example Vidoe===> 
-
+https://github.com/user-attachments/assets/6efb18df-5181-4423-bf65-52f096ec9b3f
 
 ``` python
 style: ["typing", "async", "headline", "newsline", "mid", "gunshort", "snip", 
@@ -143,9 +141,7 @@ printf(values, style="center")
 Introducing a novel printing 'style—async'. This style revolutionizes the way multiple lines are printed simultaneously, 
 optimizing display in both spacious and constrained terminals.
 
-
-
-Example Vidoe===> 
+https://github.com/user-attachments/assets/6f05b6f6-b234-41e6-b7f4-7a5052bfa0ff
 
 
 *Key Features:*
@@ -183,9 +179,7 @@ Python, but rather follow a Async-style naming convention specific to the dvs_pr
 Speed defins printf's animation speed, `default speed is 3` you can set `speed from ( 1 to 6 or 7)`
 each style's speed is littel difrent 
 
-
-Example Vidoe===> 
-
+https://github.com/user-attachments/assets/631e97d4-e615-4af8-8960-54915001c313
 
 * 1 = *Very Slow*
 * 2 = *Slow*
