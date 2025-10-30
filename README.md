@@ -370,7 +370,7 @@ def FuncInfo(a, b, c,
 ```py
                     keyword 
                        │       argument 
-showLoading(            │          │
+showLoading(           │          │
     target=FuncInfo,   │          │
     args=(a,b,c),      │          │
                        ▼          ▼
