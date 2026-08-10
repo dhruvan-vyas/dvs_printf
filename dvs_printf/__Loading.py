@@ -36,11 +36,16 @@ def Loading(t1, Text, progressChar):
     sleep(.5)
     print(end="\x1b[2K")
 
+def spirels(t1, text):
+    # while t1.is_alive():
+
+    pass
+
 def showLoading(target: object, 
     args:tuple|None=(),
     kwargs:dict|None={},
     LoadingText:str|None="Loading",
-    progressChar:str|None="#" ) -> int:
+    progressChar:str|None="■" ) -> int:
     """
 create Loading bar in terminal with `threading` for 
 
@@ -82,13 +87,13 @@ kwargs={
 ```
 
 ### LoadingText
-    ```test
+    ```text
     text befor Loading bar, default LoadingText = "Loading"
-    Loading[----------------------------- ] %99  
+    Loading[------------------------------] %100
     ```
 
 ### progressChar
-    ```test
+    ```text
     Charactor to see progressed Loading bar, default progressChar = "#" 
     downloading files[##########                    ] %35
     ```
@@ -98,8 +103,8 @@ kwargs={
         progressChar = str(progressChar)[0] if (len(str(progressChar)) != 0) and (progressChar != " "
         ) and (progressChar[0] not in ["","\n","\r", "\b", "\t", "\a", "\f", "\v"]) else "-"
 
-        if args is not tuple: 
-            args = (args,)
+        # if args is not tuple: 
+        #     args = (args,)
 
         t1 = threading.Thread(target=target, args=args, kwargs=kwargs)
         t2 = threading.Thread(target=Loading, args=(t1,LoadingText,progressChar))
@@ -116,3 +121,47 @@ kwargs={
         print(EXCPT)
         return 1
 
+# a = "\nA"
+
+# # print(a,"sjsdfhj")
+# print(end='\033[?25l')
+# # print(a.translate("\n"),"sjsdfhj")
+# # a = 1
+# # print("Loading: ",end="")
+# # while a<10:
+# #     for i in ["/", "_", "\\", "|", "¯"]:
+# #         print(i+"\b",end="", flush=True)
+# #         sleep(.08)
+# #     a+=1
+# # print("\x1b[2K",end="\r")
+
+# from os import system, get_terminal_size
+
+# for i in range(4):
+#     # for j in ["|.         |","| .        |","|  .       |","|   .      |","|    .     |","|     .    |","|      .   |","|       .  |","|        . |","|         .|","|        . |","|       .  |","|      .   |","|     .    |","|    .     |","|   .      |","|  .       |","| .        |","|.         |"]:
+#     # for j in ["(    ","¯    "," ¯   ","  ¯  ","   ¯ ","    ¯","    )","    .","   . ","  .  "," .   ",".    "]:
+#     # for j in ["|    ","¯    "," ¯   ","  ¯  ","   ¯ ","    ¯","    |","    _","   _ ","  _  "," _   ","_    "]:
+#     # for j in ["|   |","¯   _"," ¯ _ ","  -  "," _ ¯ ","_   ¯","|   |","¯   _"," ¯ _ ","  -  "," _ ¯ ","_   ¯"]:
+#     # for j in ["-","\\","|","/","-","\\","|"]:
+#     for j in [" ¯ ","  |"," _ ","|  "]:
+#         print(j, end="",flush=True)
+#         sleep(.05)
+#         print(end="\b"*12, flush=True)
+# print("\r",end="\x1b[2K")
+
+# # " ¯","  |"," _ ","|"
+# # " ¯","  |"," _ ","|"
+
+
+
+
+# # from os import get_terminal_size
+# # length = "● "*8
+# # text = "Loding Text: |"
+# # for i in range(4):
+
+# #     temlen = get_terminal_size()[0] - len(text)-20
+# #     for j in range(temlen):
+# #         print(text+ (" "*j) +length[:j]+" "*(temlen-j) +"|", end="\r")
+# #         sleep(.04)
+# print(end="\033[?25h")

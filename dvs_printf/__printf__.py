@@ -47,23 +47,19 @@ DataSet and add Them into a list by index.
                 [str(sublist.numpy().tolist()) for sublist in reshape(value, [-1, shape(value)[-1]])]
                     )
                     if "show" in getmat:newa_a.extend([
-    "<class 'Tensorflow'",(str(value.dtype).replace("<","")).replace(">","") +" ","shape: "+str(value.shape)+">"
+    "<class 'Tensorflow'",(str(value.dtype).replace("<","")).replace(">","") +" ","shape= "+str(value.shape)+">"
                     ])
                     continue  
                 elif "torch" in str(var_type):
-                    newa_a.extend(
-                [str(sublist.tolist()) for sublist in value.view(-1, value.size(-1))]
-                    )
+                    newa_a.extend([str(sublist.tolist()) for sublist in value.view(-1, value.size(-1))])
                     if "show" in getmat:newa_a.extend([
-    "<class 'torch.Tensor'", " dtype="+str(value.dtype)+" "," shape="+str(value.shape)+">"
-                    ])
+    "<class 'torch.Tensor'", " dtype="+str(value.dtype)+" "," shape="+str(value.shape)+">"])
                     continue
                 elif "pandas" in str(var_type):
                     newa_a.extend(value.stack().apply(lambda x: str(x)).tolist())
                     if "show" in getmat:
                         newa_a.extend(["<class 'pandas'"," shape="+str(value.shape)+" "+">"])
-                        newa_a.extend(
-    (str(value.dtypes).replace("\n","@#$@")).replace("    ",": ").split("@#$@")
+                        newa_a.extend((str(value.dtypes).replace("\n","@#$@")).replace("    ",": ").split("@#$@")
                     )
                     continue
                 else: 
@@ -74,14 +70,19 @@ DataSet and add Them into a list by index.
                         newa_a.append(str(value).replace("\n"," "))
                         continue
             except:pass
-        try:tem_len=get_terminal_size()[0]-2  
-        except:tem_len=80
+
+        try:
+            tem_len=get_terminal_size()[0]-2  
+        except OSError: 
+            tem_len=80
+
         if var_type==dict:
             for i in value:
                 for var in f"{i}: {value[i]}".split('\n'):
                     newa_a.extend(divide_line(var, tem_len)) if len(var)>=tem_len else newa_a.append(var)
-        elif(var_type==list)or(var_type==tuple)or(
-var_type==set):newa_a.extend(list_of_str(value,getmat=False))
+        # elif(var_type==list)or(var_type==tuple)or(var_type==set):
+        elif var_type in[list,tuple,set]:
+            newa_a.extend(list_of_str(value,getmat=False))
         else:
             if var_type!=str:value=str(value)
             for vel in value.split("\n"):
@@ -98,7 +99,7 @@ def printf(*values:object,
     stay:bool|      None=True,
     getmat:bool|str|None=False) -> None:
     ''' 
-#### [printf](https://github.com/dhruvan-vyas/dvs_printf?tab=readme-ov-file#printf-function): \
+#### [printf](https://github.com/dhruvan-vyas/dvs_printf?tab=readme-ov-file#printf-function):
 prints values to a stream with animation. 
 ---
 #### style: 
@@ -173,6 +174,7 @@ for animation, `default getmat=False`, set as `True, "true", "show"`
                 for j in range(max(len(m) for m in values[v:v+tem_size])+1):
                     for i in values[v:v+tem_size]:
                         print(i[:j])
+                            #   +("|" if j < len(i) else " "))
                     print(end="\033[F"*(tem_size if len_val>v+tem_size else len_val-v))
                     sleep(speed)
                 print("\n"*(tem_size-1 if len_val>v+tem_size else len_val-v-1))
@@ -203,35 +205,36 @@ for animation, `default getmat=False`, set as `True, "true", "show"`
                         print(i[:i_len-j].rjust(get_terminal_size()[0]),end="\r")
                         print(end="\x1b[2K")
                         sleep(speed)
-        elif style=="center":
-            for i in values:
-                i_len=len(i)
-                for j in range(i_len+1):
-                    print(" "*int(get_terminal_size()[0]/2-len(i[:j])/2)
-                    +i[:j]+("|"if j<i_len else" "),end="\r") 
-                    sleep(speed)
-                sleep(delay)
-                print(end=("\n"if stay else"\x1b[2K"))
         elif "center" in style:
-            for i in values:
-                i_len=len(i)
-                if style=="centerac":
+            if style=="center":
+                for i in values:
+                    i_len=len(i)
                     for j in range(i_len+1):
-                        print(" "*int(get_terminal_size()[0]/2-i_len/2)+i[0:j]
-                        +("|"if j<i_len else" ")+" "*(i_len-j-1),end="\r")
+                        print(" "*int(get_terminal_size()[0]/2-len(i[:j])/2)
+                        +i[:j]+("|"if j<i_len else" "),end="\r") 
                         sleep(speed)
-                elif style=="centeral":
-                    for j in range(i_len+1):
-                        print(" "*int(get_terminal_size()[0]/2-(max_line_len/2))
-                        +i[0:j]+("|"if j<i_len else" "),end="\r")
-                        sleep(speed)
-                elif style=="centerar":
-                    for j in range(i_len+1):
-                        print(" "*int(get_terminal_size()[0]/2+(max_line_len/2-i_len))
-                        +i[:j]+("|"if j<i_len else" "),end="\r")
-                        sleep(speed)
-                sleep(delay)
-                print(end=("\n"if stay else"\x1b[2K"))
+                    sleep(delay)
+                    print(end=("\n"if stay else"\x1b[2K"))
+            else:
+                for i in values:
+                    i_len=len(i)
+                    if style=="centerac":
+                        for j in range(i_len+1):
+                            print(" "*int(get_terminal_size()[0]/2-i_len/2)+i[0:j]
+                            +("|"if j<i_len else" ")+" "*(i_len-j-1),end="\r")
+                            sleep(speed)
+                    elif style=="centeral":
+                        for j in range(i_len+1):
+                            print(" "*int(get_terminal_size()[0]/2-(max_line_len/2))
+                            +i[0:j]+("|"if j<i_len else" "),end="\r")
+                            sleep(speed)
+                    elif style=="centerar":
+                        for j in range(i_len+1):
+                            print(" "*int(get_terminal_size()[0]/2+(max_line_len/2-i_len))
+                            +i[:j]+("|"if j<i_len else" "),end="\r")
+                            sleep(speed)
+                    sleep(delay)
+                    print(end=("\n"if stay else"\x1b[2K"))
         else: 
             from .other_styles import otherStyles
             otherStyles(values, style, speed, delay, stay)    
@@ -242,3 +245,7 @@ for animation, `default getmat=False`, set as `True, "true", "show"`
     finally:
         print(end="\033[?25h")
         del values
+
+
+
+# printf("helloa asehrshfkjhskdjfh","adbfanbsdfasdbfshdfhajksjkfjsjdfklgjkgsjdf;kgj;sfdjkgsd","adjfhasjkdhfahdajksdfk", style="async" )

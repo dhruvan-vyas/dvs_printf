@@ -36,3 +36,11 @@ setup(
     include_package_data=True,
     zip_safe=False
 )
+
+
+# from time import sleep
+# from dvs_printf import showLoading
+
+# def arg(a, b, c):
+#     sleep(a+b+c)
+# showLoading(target=arg, args=((1,2,1)))

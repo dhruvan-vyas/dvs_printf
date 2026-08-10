@@ -22,3 +22,8 @@ from .__init import init
 from .__Loading import showLoading
 
 
+# import re
+
+# pattern = re.compile(r'[\x00-\x1F\x7F-\x9F]')  
+
+ 
