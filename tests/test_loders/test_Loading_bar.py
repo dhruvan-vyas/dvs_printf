@@ -15,7 +15,7 @@ def failing_task():
 
 def long_running_task():
     """A task designed to exceed the default timeout."""
-    time.sleep(2)
+    time.sleep(1)
     return "LONG_RUNNING_RESULT"
 
 def progress_task(progress_updater: ProgressUpdater):
@@ -54,7 +54,7 @@ def test_timeout_on_long_running_task(loader_instance):
     Test that a task which exceeds the set timeout raises an exception.
     """
     with pytest.raises(Exception):
-        loader_instance(long_running_task, timeout=0.5)
+        loader_instance(long_running_task, timeout=0.3)
 
 def test_progress_updater(loader_instance):
     """

@@ -174,7 +174,7 @@ python -m dvs_printf -d help
 
 ---
 
-## 📚 Exhaustive API & Sub-Module Reference
+## Exhaustive API & Sub-Module Reference
 
 ### 1. `printf` Function Core Engine
 
