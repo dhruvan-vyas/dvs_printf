@@ -15,7 +15,7 @@ def failing_task():
 
 def long_running_task():
     """A task designed to exceed the default timeout."""
-    time.sleep(0.3)
+    time.sleep(2)
     return "LONG_RUNNING_RESULT"
 
 def progress_task(progress_updater: ProgressUpdater):
@@ -29,9 +29,9 @@ def progress_task(progress_updater: ProgressUpdater):
 @pytest.fixture
 def loader_instance():
     """
-    A pytest fixture to provide a fresh LoadingBar instance for each test with a short timeout.
+    A pytest fixture to provide a fresh LoadingBar instance for each test.
     """
-    return LoadingBar(timeout=0.1, title_text="Test Loader")
+    return LoadingBar(timeout=2.0, title_text="Test Loader")
 
 def test_successful_task_completion(loader_instance):
     """
@@ -54,12 +54,12 @@ def test_timeout_on_long_running_task(loader_instance):
     Test that a task which exceeds the set timeout raises an exception.
     """
     with pytest.raises(Exception):
-        loader_instance(long_running_task)
+        loader_instance(long_running_task, timeout=0.5)
 
 def test_progress_updater(loader_instance):
     """
     Test that the ProgressUpdater object is correctly passed to the task
     and that the task can use it to update the loading bar's progress.
     """
-    result = loader_instance(progress_task, progress_updater=True, timeout=1.0)
+    result = loader_instance(progress_task, progress_updater=True, timeout=2.0)
     assert result == "PROGRESS_RESULT"

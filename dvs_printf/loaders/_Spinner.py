@@ -34,7 +34,7 @@ def ShowSpinner(
         target: Optional[Callable],
         args: Iterable[Any],
         kwargs: Optional[Mapping[str, Any]],
-        timeout: Optional[int] = 80,
+        timeout: Optional[Union[int, float]] = 80,
         daemon: Optional[bool] = None,
         name: Optional[str] = None,
         *,
@@ -293,7 +293,7 @@ def _run_animation_loop():
         return local_scope["_run_animation_loop"]
 
 
-    def run(self, target: Callable, *args, timeout=None, **kwargs) -> Any:
+    def run(self, target: Callable, *args, timeout: Optional[Union[int, float]] = None, **kwargs) -> Any:
         """
         The main execution method. Runs the target function in a background worker 
         thread while displaying the animated spinner.
@@ -304,7 +304,7 @@ def _run_animation_loop():
         Args:
             target (Callable): The function to execute.
             *args: Positional arguments for the target.
-            timeout (int, optional): Maximum time to wait. Overrides the configured timeout.
+            timeout (int, float, optional): Maximum time to wait. Overrides the configured timeout.
             **kwargs: Keyword arguments for the target (including optional 'progress_updater').
 
         Returns:
@@ -318,7 +318,7 @@ def _run_animation_loop():
         self.animaiton_exception = None
         self.result = None
 
-        if type(timeout) is int and timeout > 0:
+        if isinstance(timeout, (int, float)) and not isinstance(timeout, bool) and timeout > 0:
             self.timeout = timeout
 
         if  kwargs.get('progress_updater'):

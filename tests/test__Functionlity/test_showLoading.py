@@ -6,7 +6,7 @@ def test_ShowLoading():
     ShowLoading(
         target=time.sleep,
         args=0.01,
-        timeout=0.1,
+        timeout=2.0,
         title_text="Loading_files",
         bar_color=["red", "orange", "blue"]   
     )
@@ -17,7 +17,7 @@ def test_Deprocated_LogingBar():
     showLoading(
         target=time.sleep,
         args=0.01,
-        timeout=0.1,
+        timeout=2.0,
         LoadingText="Loading_files",
         progressChar="◼︎"   
     )

@@ -58,9 +58,9 @@ def progress_task(progress_updater: ProgressUpdater):
 @pytest.fixture
 def spinner_instance():
     """
-    A pytest fixture to provide a fresh Spinner instance with a short timeout for tests.
+    A pytest fixture to provide a fresh Spinner instance for tests.
     """
-    return Spinner(timeout=0.1, title="Test Spinner")
+    return Spinner(timeout=2.0, title="Test Spinner")
 
 # --- Core Functionality Tests ---
 
@@ -84,14 +84,14 @@ def test_timeout_on_long_running_task(spinner_instance):
     Tests that a task that exceeds the set timeout raises a TimeoutError.
     """
     with pytest.raises(TimeoutError):
-        spinner_instance(long_running_task)
+        spinner_instance(long_running_task, timeout=0.1)
 
 def test_progress_updater(spinner_instance):
     """
     Tests that the ProgressUpdater object is correctly passed to the task
     and that the task can use it to update the spinner's progress.
     """
-    result = spinner_instance(progress_task, progress_updater=True, timeout=1.0)
+    result = spinner_instance(progress_task, progress_updater=True, timeout=2.0)
     assert result == "PROGRESS_RESULT"
 
 # --- Configuration and Customization Tests ---
