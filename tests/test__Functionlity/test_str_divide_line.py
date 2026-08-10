@@ -1,4 +1,4 @@
-from dvs_printf.__printf__ import divide_line
+from dvs_printf._printf_helper import divide_line
 
 value = """The sun dipped below the horizon, casting a warm, golden hue across the tranquil lake. 
 Birds chirped melodiously, their songs harmonizing with the gentle rustling of leaves in the evening breeze. 
