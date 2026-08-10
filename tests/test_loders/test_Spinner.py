@@ -101,8 +101,8 @@ def test_custom_timeout(spinner_instance):
     Tests that the timeout parameter can be overridden at runtime.
     """
     with pytest.raises(TimeoutError):
-        # A 0.3-second task should time out with a 0.1-second timeout
-        spinner_instance(successful_task, duration=0.3, timeout=0.1)
+        # A 1.0-second task should time out with a 0.1-second timeout
+        spinner_instance(successful_task, duration=1.0, timeout=0.1)
 
 def test_different_spinner_style():
     """
