@@ -61,5 +61,5 @@ def test_progress_updater(loader_instance):
     Test that the ProgressUpdater object is correctly passed to the task
     and that the task can use it to update the loading bar's progress.
     """
-    result = loader_instance(progress_task, progress_updater=True)
+    result = loader_instance(progress_task, progress_updater=True, timeout=1.0)
     assert result == "PROGRESS_RESULT"

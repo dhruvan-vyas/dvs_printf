@@ -37,29 +37,6 @@ def spinner_instance():
     """
     return Spinner(timeout=0.1, title="Test Spinner")
 
-@pytest.fixture(autouse=True)
-def capture_stdout():
-    """
-    Fixture to capture and restore stdout safely across all OS environments and pytest runners.
-    """
-    try:
-        if not hasattr(sys.stdout, 'fileno'):
-            yield
-            return
-        fd = sys.stdout.fileno()
-        original_stdout_fd = os.dup(fd)
-        null_fd = os.open(os.devnull, os.O_RDWR)
-        os.dup2(null_fd, fd)
-        try:
-            yield
-        finally:
-            os.dup2(original_stdout_fd, fd)
-            os.close(null_fd)
-            os.close(original_stdout_fd)
-    except (OSError, AttributeError, ValueError, Exception):
-        yield
-
-
 # --- Core Functionality Tests ---
 
 def test_successful_task_completion(spinner_instance):
@@ -89,7 +66,7 @@ def test_progress_updater(spinner_instance):
     Tests that the ProgressUpdater object is correctly passed to the task
     and that the task can use it to update the spinner's progress.
     """
-    result = spinner_instance(progress_task, progress_updater=True)
+    result = spinner_instance(progress_task, progress_updater=True, timeout=1.0)
     assert result == "PROGRESS_RESULT"
 
 # --- Configuration and Customization Tests ---
