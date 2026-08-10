@@ -361,7 +361,7 @@ def _run_animation_loop():
     filled_units = full_blocks = progress = elapsed_time = progress = 0
     Len_barChars = len(bar_characters) 
     bar_pr       = (bar_length * len(bar_characters)) / 100
-    animaiton_exception = None
+    animaiton_exception = e = None
 
     {'i=0' if self.GCo else ''}
     try:
@@ -379,7 +379,7 @@ def _run_animation_loop():
     finally:
         if animaiton_exception: 
             self.exception = "LoaderAnimationError"
-            _write(f"\r\x1b[2K{self.error_color_code}✖ failed during animation: {{e}}{RESET_FG}\n")
+            _write(f"\r\x1b[2K{{self.error_color_code}}✖ failed during animation: {{e}}{{RESET_FG}}\n")
         elif self.task_thread.is_alive():
             e = "Timeout ERROR"
             _write(f'\r\x1b[2K{Errored_bar}\n')
@@ -529,10 +529,7 @@ def _run_animation_loop():
                 and self.inject_progress == True
             ):  
                 raise LoaderAttributeError(error_value=kwargs['progress_updater'], keyWord='progress_updater')
-            raise LoaderValueError(
-                        error_value=target.__name__,
-                        keyWord='target',
-                    )
+            raise self.exception
         
         return self.result
 

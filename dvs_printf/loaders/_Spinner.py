@@ -390,11 +390,7 @@ def _run_animation_loop():
                     _write(f"\r\033[2K{self.error_color_code}✖\033[0m {self.colored_message } {self.current_progresh_status} {self.error_color_code}{self.error_message}{RESET}\n")
             else:   _write(f"\r\033[2k{self.error_color_code}✖\033[0m {self.colored_message } {self.current_progresh_status} {self.error_color_code}failed with error: {self.exception}{RESET}\n")
             _flush()
-            raise SpinnerValueError(
-                error_value=target.__name__,
-                keyWord="target",
-                message= f"Something Went Wrong, Maybe While Running {PEACH}Target{RESET} Function.\n{self.exception}"
-            )
+            raise self.exception
         
         # 3. Check for animation thread exception (should be rare)
         if self.animaiton_exception:

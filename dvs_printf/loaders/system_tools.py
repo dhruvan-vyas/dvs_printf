@@ -25,24 +25,13 @@ def println(text=""):
 def get_dedicated_console_writer() -> Tuple[Callable[[str], None], Callable[[], None]]:
     """
     Creates and returns dedicated write and flush functions for direct console output.
-    
-    This method duplicates the underlying file descriptor for sys.stdout, ensuring
-    that the returned functions will always bypass any redirection or suppression.
-    
-    Returns:
-        A tuple containing two callable functions:
-        - write(text: str): A function that writes text directly to the console.
-        - flush(): A function that forces the console to display the output.
     """
-    # Duplicate the file descriptor for standard output (fd 1).
-    # This creates a new, un-redirected reference to the console.
-    dedicated_fd = os.dup(1)
-
-    # Use os.fdopen() to create a new Python file object from the duplicated descriptor.
-    dedicated_stream = os.fdopen(dedicated_fd, 'w')
-
-    # Return the write and flush methods from this new, dedicated stream.
-    return dedicated_stream.write, dedicated_stream.flush
+    try:
+        dedicated_fd = os.dup(1)
+        dedicated_stream = os.fdopen(dedicated_fd, 'w', encoding='utf-8', errors='replace')
+        return dedicated_stream.write, dedicated_stream.flush
+    except Exception:
+        return stdout.write, stdout.flush
 
 # Get our dedicated print functions at the start of the program.
 _write, _flush = get_dedicated_console_writer()
