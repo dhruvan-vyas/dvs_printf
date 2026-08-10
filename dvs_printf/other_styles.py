@@ -3,60 +3,54 @@ from os import get_terminal_size
 
 def _help_():
     tem_len_line = get_terminal_size()[0]
-    mid_len_line = int(tem_len_line/2 - 9)
+    mid_len_line = max(0, int(tem_len_line/2 - 12))
     from .__printf__ import printf
-    print("\n"+"="*tem_len_line+"\n"+(" "*mid_len_line)+">>> DVS_PRINTF <<<"+"\n"+"="*tem_len_line)
-    printf("""\nkeywords --> printf(values, style='typing', speed=3, delay=0, stay=True)\n\n
-values --> main stream input values  
-           value can be any-data-Type 
-           Ex. printf(str, list, [tuple, set], dict, int, Any,...)\n\n
-style --> style is different type if printing animation 
-          styles, from this list each style type works 
-          differently according to description below\n
-        ["typing", "async", "headline", "newsline", "mid", "gunshort", "snip",
-        "left", "right", "center", "centerAC", "centerAL", "centerAR", "wave",
-        "matrix", "matrix2", "scatter", "fire", "blink", "f2b", "b2f", "help"]\n
-        |¯¯¯|¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|                 
-        |   |  style   |            Animation Description             |
-        |___|__________|______________________________________________|
-        | * | typing   | print like typing animation                  |
-        | * | async    | print multiple lines simultaneously          |
-        |   | headline | print like head lines in news                |
-        |   | newsline | print running newslines animation            |
-        |   | mid      | print line from mid                          |
-        | * | left     | value coming from left side of the terminal  |
-        | * | right    | value coming from right side of the terminal |
-        | * | center   | animation appear at center of the terminal   |
-        | * | centerAC | values arrang at center of the terminal      |
-        | * | centerAL | arrang each-item at center-Left on terminal  |
-        | * | centerAR | arrang each-item at center-Right on terminal |
-        |   | gunshort | firing the letters from short gun            |
-        |   | snip     | sniping the letters from end of the terminal |
-        |   | matrix   | print random letters to real line            |
-        |   | matrix2  | print 1st letter and 2nd random letters      |
-        |   | Scatter  | Scattered latters effect for each line       |
-        |   | Fire     | appear latters with gap creates flame effect | 
-        |   | wave     | creates wave effect with each line.          | 
-        |   | Blink    | appear Blink effect from start to end.       |
-        |   | f2b      | typing and remove letter from back to front  |
-        |   | b2f      | typing and remove letter from front to back  |
-        ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ \n\n
-speed --> speed of printf's animation 
-          defult speed is 3, from (1 to 6)\n
-          1 = Very Slow  
-          2 = Slow  
-          3 = Mediam
-          4 = Fast
-          5 = Fast+
-          6 = Very Fast\n\n
-delay --> delay is waiting time between printing 
-             of each values, (delay in second) 
-             defult delay is 0, you can set from 0 to grater\n\n    
-stay --> after style animation whether you want the values OR Not
-         defult stay is True, can be `True or False`\n
-         but some styles take No action on stay
-         whether it is True OR False 
-         Ex. ( typing, async, headline, newsline, f2b,  b2f, matrix2 )\n\n""",style="async 16",speed=6)
+    print("\n"+"="*tem_len_line+"\n"+(" "*mid_len_line)+">>> DVS_PRINTF HELP SYSTEM <<<"+"\n"+"="*tem_len_line)
+    printf("""
+printf(values, style='typing', speed=3, delay=0, stay=True, color=None, background_color=None, attrs=[], getmat=False)
+
+PARAMETERS:
+  values           : Input data stream to animate (string, list, tuple, set, dict, matrix, custom objects).
+  style            : Animation style key (typing, glitch, matrix, matrix2, headline, async, wave, fire, newsline, gunshort, snip, silverfade, scatter, blink, f2b, b2f, help).
+  speed            : Animation speed multiplier (1 to 6, or 7 for instantaneous). Default: 3.
+  delay            : Pause duration in seconds after rendering or between line steps. Default: 0.
+  stay             : If True, output remains visible. If False, clears line after animation completes.
+  color            : Foreground color/gradient (HEX, RGB tuple, named color, or Colors object).
+  background_color : Background color/gradient.
+  attrs            : Text formatting attributes (e.g. ['bold', 'italic', 'underline']).
+  getmat           : scientific matrix formatting (True, False, or 'show').
+
+AVAILABLE ANIMATION STYLES:
+  ["typing", "async", "headline", "newsline", "mid", "gunshort", "snip",
+   "left", "right", "center", "centerAC", "centerAL", "centerAR", "wave",
+   "matrix", "matrix2", "scatter", "fire", "blink", "f2b", "b2f", "help"]
+
+  |   Style    | Description                                                 |
+  |------------|-------------------------------------------------------------|
+  | typing     | Sequential character typewriter animation (default)         |
+  | async      | High-speed multi-line parallel streaming                    |
+  | headline   | Centered section heading banner style                       |
+  | newsline   | Scrolling news ticker-tape animation                        |
+  | mid        | Expands outwards from line center                           |
+  | left/right | Text slides in from left or right terminal edge             |
+  | center     | Aligned center text animation                               |
+  | gunshort   | Rapid letter firing particle effect                         |
+  | snip       | Horizontal scissors trimming movement                       |
+  | matrix/2   | Digital rain / code stream falling animation                |
+  | scatter    | Fragmented letters coalescing into target text              |
+  | fire       | Flickering intense flame color glow                         |
+  | wave       | Case-swapping oscillating ripple effect                     |
+  | blink      | Flash visibility pulse animation                            |
+  | f2b / b2f  | Front-to-back or back-to-front line trimming                |
+  | help       | Launches this interactive module help guide                 |
+
+MODULE SPECIFIC GUIDES & GITHUB DOCUMENTATION LINKS:
+  • Core printf Guide    : https://github.com/dhruvan-vyas/dvs_printf/blob/main/READMES/printf_README.md
+  • colors Engine        : https://github.com/dhruvan-vyas/dvs_printf/blob/main/READMES/colors_README.md
+  • loaders (Bars/Spin)  : https://github.com/dhruvan-vyas/dvs_printf/blob/main/READMES/loaders_README.md
+  • Init Global Config   : https://github.com/dhruvan-vyas/dvs_printf/blob/main/READMES/init_README.md
+  • exceptions Visualizer: https://github.com/dhruvan-vyas/dvs_printf/blob/main/READMES/exceptions_README.md
+""", style="async", speed=6)
     print("="*tem_len_line+"\n")
 
 def fuzzy_check(str1):

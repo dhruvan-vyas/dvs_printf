@@ -18,10 +18,11 @@ is given Then the output animation work with each items.
 
 
 __all__ = (
-    "Init", "init", "printf", "list_of_str"
+    "Init", "init", "printf", "list_of_str",
 
     'ProgressUpdater',
     'ShowLoading', 
+    'showLoading',
     'LoadingBar',
     'LoadingBarConfig',
     'LoaderFrems',
@@ -56,7 +57,7 @@ __all__ = (
 
 ) 
 
-
+print("\n\n Wellcome to dvs_printf -e \n\n")
 __version__ = '3.1.0'
 __author__  = 'Dhruvan Vyas'
 

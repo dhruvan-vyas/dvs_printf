@@ -34,7 +34,7 @@ is configured to show percentages.
 """
 
 from .system_tools   import ProgressUpdater
-from ._Loader        import LoadingBar, ShowLoading
+from ._Loader        import LoadingBar, ShowLoading, showLoading
 from .loader_config  import LoadingBarConfig
 from .loader_frems   import LoaderFrems
 from ._Spinner       import Spinner, ShowSpinner
@@ -43,6 +43,7 @@ from .spinner_frems  import SpinnerFrems
 
 __all__ = [
     "ShowLoading", 
+    "showLoading",
     "LoadingBar", 
     "LoadingBarConfig", 
     "LoaderFrems",

@@ -8,7 +8,7 @@ R        = RESET
 B        = Font_Styles.BOLD   
 I        = Font_Styles.ITALIC 
 
-del Font_Styles, RESET
+del Font_Styles
 
 
 if console_EnvType >= 3: Color_Dict = { # 16 colors ansi or no colors(monocromic) Env_Type: (3, 4)

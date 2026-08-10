@@ -528,6 +528,16 @@ def ShowLoading(
         TimeOutError: If the task exceeds the specified `timeout`.
     """
 
+    if kwargs is None:
+        kwargs = {}
+    elif not isinstance(kwargs, dict):
+        kwargs = dict(kwargs)
+
+    if args is None:
+        args = ()
+    elif not isinstance(args, Iterable) or isinstance(args, (str, bytes)):
+        args = (args,)
+
     KEY_WORDS = vars()
     for remove_keys in ['target','config', 'args', 'kwargs', 'timeout']:
         del KEY_WORDS[remove_keys]
@@ -537,7 +547,6 @@ def ShowLoading(
         **KEY_WORDS
     )
 
-    # progress_updater = True if kwargs.get('progress_updater', inject_progress) else False
     if kwargs.get('progress_updater', inject_progress):
         kwargs['progress_updater'] = True 
 
@@ -545,6 +554,35 @@ def ShowLoading(
         target, *args, **kwargs, 
         timeout = timeout
     )
+
+
+def showLoading(*args, **kwargs) -> Any:
+    """
+    Deprecated alias for `ShowLoading`.
+
+    .. deprecated:: 3.1.0
+       `showLoading` has been renamed to `ShowLoading` to adhere to standard 
+       PascalCase factory function naming conventions. This function will be 
+       removed in a future major release. Please update your codebase to use `ShowLoading`.
+
+    Args:
+        *args: Positional arguments forwarded to `ShowLoading`.
+        **kwargs: Keyword arguments forwarded to `ShowLoading`.
+
+    Returns:
+        Any: The execution result of the background task target.
+    """
+    print(
+        "\033[38;2;255;165;0m[DEPRECATION WARNING] Function 'showLoading' is deprecated and will be removed in the next major update.\n"
+        " -> 'showLoading' has been renamed to 'ShowLoading'. Please use 'ShowLoading' from now on.\n"
+        " -> Documentation: https://github.com/dhruvan-vyas/dvs_printf/blob/main/READMES/loaders_README.md\033[0m\n"
+    )
+    # Legacy keyword argument mapping for backward compatibility
+    if 'LoadingText' in kwargs:
+        kwargs['title_text'] = kwargs.pop('LoadingText')
+    if 'progressChar' in kwargs:
+        kwargs['bar_borders'] = kwargs.pop('progressChar')
+    return ShowLoading(*args, **kwargs)
 
 
 class LoadingBar(LoadingBarConfig):
@@ -578,7 +616,6 @@ class LoadingBar(LoadingBarConfig):
         self._progress_updater: ProgressUpdater = ProgressUpdater()
         self.task_thread: MyThread = None
         self.task_completed: Event = Event() # Signal for the animation loop to stop
-        print("self.bar_borders:", [self.bar_borders])
         self.animation_thread = None
         self.start_time = None
         self.result = None
@@ -586,18 +623,33 @@ class LoadingBar(LoadingBarConfig):
         self.reset_color = '\033[0m'
         self._setup_colors_and_styles()
 
+    # def __getattr__(self, name):
+    #     """Allows reading 'loader.timeout' directly"""
+    #     return getattr(self.config, name)
+
+    # def __setattr__(self, name, value):
+    #     """Allows writing 'loader.timeout = 300' directly"""
+    #     # If the attribute exists in config, write it there
+    #     if name != 'config' and hasattr(self, 'config') and hasattr(self.config, name):
+    #         setattr(self.config, name, value)
+    #     else:
+    #         # Otherwise, write it to the main class (like 'thread', 'result')
+    #         super().__setattr__(name, value)
+
     def __getattr__(self, name):
         """Allows reading 'loader.timeout' directly"""
+        if 'config' not in self.__dict__ or name == 'config':
+            raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
         return getattr(self.config, name)
 
     def __setattr__(self, name, value):
         """Allows writing 'loader.timeout = 300' directly"""
-        # If the attribute exists in config, write it there
-        if name != 'config' and hasattr(self, 'config') and hasattr(self.config, name):
+        if name != 'config' and 'config' in self.__dict__ and hasattr(self.config, name):
             setattr(self.config, name, value)
         else:
             # Otherwise, write it to the main class (like 'thread', 'result')
             super().__setattr__(name, value)
+
 
     def _setup_colors_and_styles(self):
         """
@@ -707,7 +759,6 @@ class LoadingBar(LoadingBarConfig):
                     rf"{self.bar_color}" if (not self.use_gradient and type(self.bar_color) == str)  
                     else ""
                 )
-        print("TEXT:", [text])
 
         timeout_ratio = self.timeout / 100
 

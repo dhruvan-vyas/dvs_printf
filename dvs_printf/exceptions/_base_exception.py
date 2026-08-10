@@ -66,7 +66,6 @@ def _extract_full_call(frame: inspect.FrameInfo) -> Tuple[int, int, List[str], O
     source_code = ''.join(source_lines)
 
     # Fallback default: just the line the error occurred on, no AST node
-    # print(lineno, len(source_lines))
     try:
         default_lines: List[str] = [source_lines[lineno - 1].rstrip('\n')]
     except:

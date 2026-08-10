@@ -3,14 +3,12 @@ from dvs_printf.loaders._Spinner import (
     ProgressUpdater,
 )
 import pytest
-from time import sleep
 import time
 import sys
 import os
 
 # --- Define the tasks to be used in the tests ---
-# These are simple functions to simulate different behaviors for testing.
-def successful_task(duration: int):
+def successful_task(duration: float):
     """A task that completes successfully after a given duration."""
     time.sleep(duration)
     return "SUCCESS_RESULT"
@@ -21,14 +19,14 @@ def failing_task():
 
 def long_running_task():
     """A task designed to exceed the default timeout."""
-    time.sleep(3)
+    time.sleep(0.3)
     return "LONG_RUNNING_RESULT"
 
 def progress_task(progress_updater: ProgressUpdater):
     """A task that reports its progress using the ProgressUpdater."""
     for i in range(11):
         progress_updater.set_progress(i * 10)
-        time.sleep(0.05)
+        time.sleep(0.005)
     return "PROGRESS_RESULT"
 
 # --- Test Fixtures and Functions ---
@@ -37,7 +35,7 @@ def spinner_instance():
     """
     A pytest fixture to provide a fresh Spinner instance with a short timeout for tests.
     """
-    return Spinner(timeout=2, title="Test Spinner")
+    return Spinner(timeout=0.1, title="Test Spinner")
 
 @pytest.fixture(autouse=True)
 def capture_stdout():
@@ -64,7 +62,7 @@ def test_successful_task_completion(spinner_instance):
     """
     Tests that a task completes successfully and returns the correct result.
     """
-    result = spinner_instance(successful_task, duration=1)
+    result = spinner_instance(successful_task, duration=0.02)
     assert result == "SUCCESS_RESULT"
 
 def test_failing_task_raises_exception(spinner_instance):
@@ -90,38 +88,35 @@ def test_progress_updater(spinner_instance):
     result = spinner_instance(progress_task, progress_updater=True)
     assert result == "PROGRESS_RESULT"
 
-# # --- Configuration and Customization Tests ---
+# --- Configuration and Customization Tests ---
 
 def test_custom_timeout(spinner_instance):
     """
     Tests that the timeout parameter can be overridden at runtime.
     """
     with pytest.raises(TimeoutError):
-        # A 1-second task should time out with a 0.5-second timeout
-        spinner_instance(successful_task, duration=3, timeout=1)
+        # A 0.3-second task should time out with a 0.1-second timeout
+        spinner_instance(successful_task, duration=0.3, timeout=0.1)
 
 def test_different_spinner_style():
     """
     Tests that a different spinner style can be configured.
     """
-    # Create a new Spinner with a different style
     spinner = Spinner(style="dots", timeout=1)
-    result = spinner(successful_task, duration=0.5)
+    result = spinner(successful_task, duration=0.02)
     assert result == "SUCCESS_RESULT"
 
 def test_custom_title_and_messages():
     """
     Tests that custom titles, final messages, and error messages are applied correctly.
-    This test is more about the configuration and doesn't directly assert output.
     """
     spinner = Spinner(
         title="Custom Title",
         final_message="Task Completed!",
         error_message="Something Broke!"
     )
-    result = spinner(successful_task, duration=0.1)
+    result = spinner(successful_task, duration=0.02)
     assert result == "SUCCESS_RESULT"
-    # No direct way to assert the message text without mocking _write, but this verifies config is set.
     
 # --- Decorator Test ---
 
@@ -129,26 +124,12 @@ def test_decorator_functionality():
     """
     Tests that the decorator works as expected, wrapping a function and running it with the spinner.
     """
-    spinner = Spinner(timeout=2, title="Decorator Test")
+    spinner = Spinner(timeout=1, title="Decorator Test")
 
     @spinner.decorator
     def decorated_task(duration):
         time.sleep(duration)
         return "DECORATOR_RESULT"
     
-    result = decorated_task(duration=1)
+    result = decorated_task(duration=0.02)
     assert result == "DECORATOR_RESULT"
-
-
-# spinner_instance = Spinner(timeout=2, title="Test Spinner")
-
-
-
-
-# try:
-#     # spinner_instance(long_running_task)
-#     spinner_instance(successful_task, duration=3, timeout=1)
-# except TimeoutError as E:
-#     print("Time", type(E), E)
-# except Exception as E:
-#     print(type(E), E)

@@ -153,29 +153,6 @@ def apply_gradient(
     if is_bg_gradient:
         bg_gradient_ansi = make_gradient(total_chars, bg_colors, rgb_to_bg_ansi_func)
 
-    
-    # apply gredint to str function 
-    # if is_fg_gradient and is_bg_gradient:   
-    #     color_func =        (lambda idx, ch: f"{fg_gradient_ansi[idx]}{bg_gradient_ansi[idx]}{ch}{reset_code}" 
-    #         ) if reset else (lambda idx, ch: f"{fg_gradient_ansi[idx]}{bg_gradient_ansi[idx]}{ch}")
-        
-    # elif is_fg_gradient and static_color_ansi:       
-    #     color_func =        (lambda idx, ch: f"{fg_gradient_ansi[idx]}{static_color_ansi}{ch}{reset_code}" 
-    #         ) if reset else (lambda idx, ch: f"{fg_gradient_ansi[idx]}{static_color_ansi}{ch}")
-        
-    # elif is_bg_gradient and static_color_ansi: 
-    #     color_func =        (lambda idx, ch: f"{static_color_ansi}{bg_gradient_ansi[idx]}{ch}{reset_code}" 
-    #         ) if reset else (lambda idx, ch: f"{static_color_ansi}{bg_gradient_ansi[idx]}{ch}")
-        
-    # elif is_fg_gradient:                         
-    #     color_func =        (lambda idx, ch: f"{fg_gradient_ansi[idx]}{ch}{reset_code}" 
-    #         ) if reset else (lambda idx, ch: f"{fg_gradient_ansi[idx]}{ch}")
-        
-    # else: 
-    #     color_func =        (lambda idx, ch: f"{bg_gradient_ansi[idx]}{ch}{reset_code}" 
-    #         ) if reset else (lambda idx, ch: f"{bg_gradient_ansi[idx]}{ch}")
-
-    
     if is_fg_gradient and is_bg_gradient:   
         color_func =        (lambda idx, ch: fg_gradient_ansi[idx] + bg_gradient_ansi[idx] + ch + reset_code
             ) if reset else (lambda idx, ch: fg_gradient_ansi[idx] + bg_gradient_ansi[idx] + ch )
@@ -199,29 +176,6 @@ def apply_gradient(
     # --- Gradient application loop ---
     gradient_len = len(fg_gradient_ansi or bg_gradient_ansi) - 1
     
-    # for row_idx, line in enumerate(text_list):
-    #     colored_line = [None] * len(line)
-    #     print("start Gen Apply")
-    #     for col_idx, char in enumerate(line):
-    #         i = int(( (row_idx - center_x) * cos_angle_rad
-    #                 + (col_idx - center_y) * sin_angle_rad
-    #                 + max_distance
-    #               ) / max_distance_2
-    #                 * gradient_len
-    #         )
-    #         colored_line[col_idx] = color_func(i, char)
-    #     yield colored_line
-
-        #     colored_line[col_idx] = color_func(int(
-        #                                 (   (row_idx - center_x) * cos_angle_rad
-        #                                   + (col_idx - center_y) * sin_angle_rad
-        #                                   + max_distance
-        #                                 ) / max_distance_2
-        #                                   * gradient_len
-        #                             ), char)
-
-
-    # for row_idx, line in enumerate(text_list):
     yield from (
         [
             color_func(
@@ -234,5 +188,5 @@ def apply_gradient(
             ) for col_idx, char in enumerate(line) 
         ] for row_idx, line in enumerate(text_list)
     )
-        # yield colored_line
+
 
