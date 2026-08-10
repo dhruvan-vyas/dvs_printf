@@ -29,6 +29,31 @@ def progress_task(progress_updater: ProgressUpdater):
         time.sleep(0.005)
     return "PROGRESS_RESULT"
 
+# try:
+#     @pytest.fixture(autouse=True)
+#     def capture_stdout():
+#         """
+#         Fixture to capture and restore stdout safely across all OS environments and pytest runners.
+#         """
+#         try:
+#             if not hasattr(sys.stdout, 'fileno'):
+#                 yield
+#                 return
+#             fd = sys.stdout.fileno()
+#             original_stdout_fd = os.dup(fd)
+#             null_fd = os.open(os.devnull, os.O_RDWR)
+#             os.dup2(null_fd, fd)
+#             try:
+#                 yield
+#             finally:
+#                 os.dup2(original_stdout_fd, fd)
+#                 os.close(null_fd)
+#                 os.close(original_stdout_fd)
+#         except (OSError, AttributeError, ValueError, Exception):
+#             yield
+# except:
+#     pass
+
 # --- Test Fixtures and Functions ---
 @pytest.fixture
 def spinner_instance():
