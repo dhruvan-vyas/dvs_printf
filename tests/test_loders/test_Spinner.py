@@ -40,20 +40,24 @@ def spinner_instance():
 @pytest.fixture(autouse=True)
 def capture_stdout():
     """
-    Fixture to capture and restore stdout to prevent test output from mixing.
+    Fixture to capture and restore stdout safely across all OS environments and pytest runners.
     """
-    original_stdout_fd = os.dup(sys.stdout.fileno())
-    null_fd = os.open(os.devnull, os.O_RDWR)
-    
-    # Redirect stdout to a null device
-    os.dup2(null_fd, sys.stdout.fileno())
-    
-    yield
-    
-    # Restore stdout
-    os.dup2(original_stdout_fd, sys.stdout.fileno())
-    os.close(null_fd)
-    os.close(original_stdout_fd)
+    try:
+        if not hasattr(sys.stdout, 'fileno'):
+            yield
+            return
+        fd = sys.stdout.fileno()
+        original_stdout_fd = os.dup(fd)
+        null_fd = os.open(os.devnull, os.O_RDWR)
+        os.dup2(null_fd, fd)
+        try:
+            yield
+        finally:
+            os.dup2(original_stdout_fd, fd)
+            os.close(null_fd)
+            os.close(original_stdout_fd)
+    except (OSError, AttributeError, ValueError, Exception):
+        yield
 
 
 # --- Core Functionality Tests ---
