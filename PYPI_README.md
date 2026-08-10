@@ -12,8 +12,8 @@ High-performance Python console formatting engine providing animated text render
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/dhruvan-vyas/dvs_printf/blob/main/LICENSE)
 [![PEP8](https://img.shields.io/badge/PEP8-compliant-brightgreen.svg)](https://www.python.org/dev/peps/pep-0008/)
 
-<img src="card.png" alt="dvs_printf Banner" width="100%">
-<img src="logo_card.png" alt="dvs_printf Banner" width="100%">
+<img src="https://raw.githubusercontent.com/dhruvan-vyas/dvs_printf/main/assets/card.png" alt="dvs_printf Banner" width="100%">
+<img src="https://raw.githubusercontent.com/dhruvan-vyas/dvs_printf/main/assets/logo_card.png" alt="dvs_printf Banner" width="100%">
 
 </div>
 
@@ -209,7 +209,7 @@ printf(
 
 #### Available Animation Styles (20+ Styles)
 
-| Style Key | Description | Category | Base Delay |
+| Style Key | Description | Category | Base Delay (Ch) |
 | :--- | :--- | :--- | :---: |
 | `"typing"` | Sequential character typewriter animation (default) | Core | `0.08 s` |
 | `"async"` | High-speed simulated parallel line rendering | Core | `0.045 s` |

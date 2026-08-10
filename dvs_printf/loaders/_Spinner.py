@@ -92,6 +92,16 @@ def ShowSpinner(
         TimeOutError: If the task exceeds the specified `timeout`.
     """
 
+    if kwargs is None:
+        kwargs = {}
+    elif not isinstance(kwargs, dict):
+        kwargs = dict(kwargs)
+
+    if args is None:
+        args = ()
+    elif not isinstance(args, Iterable) or isinstance(args, (str, bytes)):
+        args = (args,)
+
     KEY_WORDS = vars()
     for remove_keys in ['target','config', 'args', 'kwargs', 'timeout']:
         del KEY_WORDS[remove_keys]
@@ -149,8 +159,6 @@ class Spinner(SpinnerConfig):
         Pre-calculates all necessary ANSI color codes, text formatting, and 
         spinner frames based on configuration.
         """
-        print("\n\n",self.style, "\n\n")
-        
         # Determine the message color and text
         try:    self._attrs, self._attrs_reset = Font_Styles.get(self.attrs)
         except: self._attrs, self._attrs_reset = '', ''

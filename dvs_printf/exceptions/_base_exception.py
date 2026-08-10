@@ -70,8 +70,8 @@ def _extract_full_call(frame: inspect.FrameInfo) -> Tuple[int, int, List[str], O
         default_lines: List[str] = [source_lines[lineno - 1].rstrip('\n')]
     except:
         default_lines: List[str] =  [f"<Could not read file lines: >"]
-
         # raise Exception("Uneanted")
+        
     default_return: Tuple[int, int, List[str], Optional[ast.Call]] = (lineno, lineno, default_lines, None)
 
     try:

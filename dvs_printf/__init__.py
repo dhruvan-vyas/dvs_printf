@@ -14,9 +14,6 @@ is given Then the output animation work with each items.
 """
 
 
-# https://vscode.dev/github/dhruvan-vyas/dvs_printf3_final/blob/main/test_load.py, line 713
-
-
 __all__ = (
     "Init", "init", "printf", "list_of_str",
 
@@ -57,7 +54,6 @@ __all__ = (
 
 ) 
 
-print("\n\n Wellcome to dvs_printf -e \n\n")
 __version__ = '3.1.0'
 __author__  = 'Dhruvan Vyas'
 

@@ -6,7 +6,6 @@ include LICENSE
 include README.md
 include CHANGELOG.md
 include RELEASE_NOTES.md
-include card.png
-include LOGO.jpeg
+graft assets
 
 global-exclude *.py[cod] __pycache__ *.so .DS_Store

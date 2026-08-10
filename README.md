@@ -12,8 +12,8 @@ High-performance Python console formatting engine providing animated text render
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![PEP8](https://img.shields.io/badge/PEP8-compliant-brightgreen.svg)](https://www.python.org/dev/peps/pep-0008/)
 
-<img src="card.png" alt="dvs_printf Banner" width="100%">
-<img src="logo_card.png" alt="dvs_printf Banner" width="100%">
+<img src="assets/card.png" alt="dvs_printf Banner" width="100%">
+<img src="assets/logo_card.png" alt="dvs_printf Banner" width="100%">
 
 </div>
 

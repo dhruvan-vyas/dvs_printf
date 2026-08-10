@@ -389,17 +389,19 @@ def get_RGB_values(color: ColorInput, only_RGB: bool = True) -> ColorTuple:
 
 def Log(type, msg):
     # Placeholder for logging function, as per user's code
-    log_co =        "\033[38;2;230;10;230m"
-    log_from_co =   "\033[38;2;153;51;153m"
-    log_msg_co =    "\033[38;2;240;5;5m" 
+    # log_co =        "\033[38;2;230;10;230m"
+    # log_from_co =   "\033[38;2;153;51;153m"
+    # log_msg_co =    "\033[38;2;240;5;5m" 
     # print(f"{log_co}Log \033[0m[{log_from_co}{type}\033[0m]: {log_msg_co}{msg}\033[0m")   
+    pass
 
 def Log2(type, msg):
     # Placeholder for logging function, as per user's code
-    log_co =        "\033[38;2;230;10;230m"
-    log_from_co =   "\033[38;2;153;51;153m"
-    log_msg_co =    "\033[38;2;240;5;5m" 
+    # log_co =        "\033[38;2;230;10;230m"
+    # log_from_co =   "\033[38;2;153;51;153m"
+    # log_msg_co =    "\033[38;2;240;5;5m" 
     # print(f"{log_co}Log \033[0m[{log_from_co}{type}\033[0m]: {log_msg_co}{msg}\033[0m")   
+    pass
 
 # Log2("TEST", 'TEST 2')
 
