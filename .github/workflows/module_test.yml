@@ -19,6 +19,7 @@ jobs:
     
     env:
       MODE: "dev"
+      COLORTERM: "truecolor"
 
     steps:
       - name: checkout code
@@ -29,19 +30,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dpendencies
+      - name: Install dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 install pytest setuptools>=42.0.0
-          pip3 install .
-          pip3 install numpy 
-        # pip3 torch pandas
-
-      # - name: Install TensorFlow
-      #   shell: python
-      #   run: |
-      #     try:import os;os.system('pip3 install tensorflow')
-      #     except:pass
+          python -m pip install --upgrade pip
+          pip install pytest setuptools>=42.0.0
+          pip install .
+          pip install numpy
 
       - name: Run Test
         run: pytest 
