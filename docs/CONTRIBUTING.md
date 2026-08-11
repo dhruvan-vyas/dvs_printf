@@ -1,192 +1,134 @@
-
 # Contributing to dvs_printf
 
-First of all, thank you for considering contributing to dvs_printf! We appreciate your time and effort to improve this project. Here are some guidelines to help you get started.
+Thank you for considering contributing to **`dvs_printf`**! We welcome contributions from developers of all skill levels. Whether you are fixing bugs, optimizing animation rendering, adding new color palettes, or expanding documentation, your efforts help improve the library for the entire community.
+
+---
 
 ## Table of Contents
 
 1. [Code of Conduct](#code-of-conduct)
 2. [How to Contribute](#how-to-contribute)
-    - [Reporting Bugs](#reporting-bugs)
-    - [Suggesting Features](#suggesting-features)
-    - [Improving Documentation](#improving-documentation)
-3. [Contribute to Workflow](#contribution-workflow)
-    - [Submitting Changes](#submitting-changes)
-    - [Development setup](#development-setup)
-4. [Style Guide](#style-guide)
-5. [License](#license)
+   - [Reporting Bugs](#reporting-bugs)
+   - [Suggesting Features](#suggesting-features)
+   - [Improving Documentation](#improving-documentation)
+3. [Development Setup](#development-setup)
+4. [Contribution Workflow](#contribution-workflow)
+5. [Specialized Subsystem Guides](#specialized-subsystem-guides)
+   - [Colors & Gradients Guide](contributing/COLORS_GUIDE.md)
+   - [Text Animations Guide](contributing/TEXT_ANIMATIONS_GUIDE.md)
+   - [Loaders & Threading Guide](contributing/LOADERS_AND_THREADING_GUIDE.md)
+6. [Code Style & Verification](#code-style--verification)
+7. [License](#license)
+
+---
 
 ## Code of Conduct
 
-By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it to understand the standards of behavior we expect from contributors.
+By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please review it before submitting issues or pull requests.
+
+---
 
 ## How to Contribute
 
 ### Reporting Bugs
 
-If you find any bugs or have feature requests, please [open an issue](https://github.com/dhruvan-vyas/dvs_printf/issues). Provide as much detail as possible to help us understand and address the issue.
+Before creating a bug report, please check existing issues to see if the problem has already been reported. When opening a new issue, include as much context as possible:
 
-- **Description**: A clear and concise description of the problem.
-- **Steps to Reproduce**: Detailed steps to reproduce the issue.
-- **Expected Behavior**: What you expected to happen.
-- **Actual Behavior**: What actually happened, including any error messages.
-- **Environment**: Information about your environment (dvs_printf version, Python version, OS, etc.).
+- **Description:** A concise summary of the issue.
+- **Steps to Reproduce:** Minimal code example demonstrating the failure.
+- **Expected Behavior:** What should have happened.
+- **Actual Behavior:** Actual console output or traceback stack.
+- **Environment Context:** Python version, OS, terminal emulator (e.g. GNOME Terminal, macOS Terminal, Windows Terminal), and `dvs_printf` version.
 
 ### Suggesting Features
 
-We welcome feature suggestions! To suggest a new feature, please open an issue and include:
+Feature proposals are always welcome! When opening a feature request issue, please describe:
 
-- **Feature Description**: A clear and concise description of the feature.
-- **Use Case**: Why you need this feature, including specific use cases.
-- **Possible Implementation**: Any thoughts on how this could be implemented.
+- **Feature Summary:** What capability would you like to see added?
+- **Use Case:** Why is this useful and what problem does it solve?
+- **Proposed Syntax / API:** Example code showing how users would interact with the new feature.
 
 ### Improving Documentation
 
-If you find any errors or areas for improvement in our documentation, please feel free to submit a pull request. Clear, comprehensive documentation helps everyone use the library more effectively.
+If you notice inaccuracies, typos, missing explanations, or poor formatting in any README or guide, feel free to open a Pull Request.
 
-## Contribute to Workflow
+---
 
-### Submitting Changes
+## Development Setup
 
-1. **Fork the repository**: Click the “Fork” button at the top right of the repo page to create your own fork.
+To work on `dvs_printf` locally:
 
-2. **Clone your fork**: Clone your forked repo to your local machine.
-   ```sh
+1. **Fork and Clone the Repository:**
+   ```bash
    git clone https://github.com/<your-username>/dvs_printf.git
    cd dvs_printf
    ```
 
-3. **Create a branch**: Create a new branch for your changes.
-    ```sh
-    git checkout -b my-new-feature
-    ```
+2. **Set Up a Virtual Environment:**
+   ```bash
+   python -m venv venv
 
-4. **Make changes & tests**:<br>
-    * **Make your changes to the local directory.** <br>
-    
-    * **see the [Development setup](#development-setup) section** For more details on setting up the module locally, installing dependencies, creating tests, and organizing files
+   # On Linux / macOS:
+   source venv/bin/activate
 
-    * **Update README.md file based on the changes you made.** 
-5. **Write tests:** If applicable, write tests for your changes to ensure they work correctly.<br>
-    test file name should be `test_<your_function_name>.py`
+   # On Windows:
+   venv\Scripts\activate
+   ```
 
-    **`test the repositorie locally`:**
-    ```sh
-    pytest tests
-    ```
-    ```py
-    # Create your test.py file in either the Functionality or Compatibility folder
-    # based on the changes you made in dvs_printf.
+3. **Install Package in Editable Mode with Dependencies:**
+   ```bash
+   pip install -e .
+   pip install pytest
+   ```
 
-    tests/                      
-    ├── __init__.py             
-    │                           
-    ├── test__Functionality/
-    │   ├── test_<your_function_name>.py     # new test file
-    │   └── ...
-    │
-    └── test_Compatibility/
-        ├── test_<your_function_name>.py     # new test file
-        └── ...
-    ```
+---
 
-5. **Commit changes**: Commit your changes with a descriptive commit message.
-    ```sh
-    git commit -m 'Add some feature'
-    ```
+## Contribution Workflow
 
-6. **Push changes**: Push your changes to your fork.
-    ```sh
-    git push origin my-new-feature
-    ```
+1. **Create a Feature Branch:**
+   ```bash
+   git checkout -b feature/my-new-feature
+   ```
 
-7. **Open a pull request**: <br>
-    Open a pull request to the main repository [dvs_printf](https://github.com/dhruvan-vyas/dvs_printf). <br>
-Please include a detailed description of your changes and any related issue numbers.
+2. **Implement Your Changes:**
+   - Keep changes focused and modular.
+   - Maintain PEP 8 coding conventions.
+   - Add inline docstrings explaining complex algorithms.
 
+3. **Run Unit Tests:**
+   ```bash
+   pytest tests
+   ```
 
-### Development setup
+4. **Commit & Push:**
+   ```bash
+   git commit -m "feat(colors): add new gradient preset 'solar_flare'"
+   git push origin feature/my-new-feature
+   ```
 
+5. **Open a Pull Request:**
+   Submit a PR against the `main` branch of `dhruvan-vyas/dvs_printf` with a detailed description of your changes.
 
-1. **Clone the repo**:
-    ```sh
-    git clone https://github.com/dhruvan-vyas/dvs_printf.git
-    cd dvs_printf
-    ```
+---
 
-2. **virtual environment** (optional):
-    ```sh
-    python -m venv venv
+## Specialized Subsystem Guides
 
-    # On Windows use
-    venv\Scripts\activate.bat
+`dvs_printf` is organized into several dedicated subsystems. For deep technical guidelines on extending specific modules, see:
 
-    # On MacOS use 
-    source venv/bin/activate
-    ```
+- [**Colors & Gradients Guide**](contributing/COLORS_GUIDE.md): Adding color spaces, named color lookup mappings, and 2D angular gradient palettes.
+- [**Text Animations Guide**](contributing/TEXT_ANIMATIONS_GUIDE.md): Implementing new streaming animation styles, frame delay formulas, and lazy loading functions in `_other_styles.py`.
+- [**Loaders & Threading Guide**](contributing/LOADERS_AND_THREADING_GUIDE.md): Creating custom spinners (`SpinnerFrems`), progress bars (`LoadingBarConfig`), and managing worker thread synchronization.
 
-4. **Install dvs_printf Module.**
-    ```py
-    # install dvs_printf 
-    pip install dvs_printf
+---
 
-    # OR install dvs_printf with your changes
-    pip install -e .   
-    ```
+## Code Style & Verification
 
-3. **Install dependencies**:
-    ```py
-    # install pytest to test your changes
-    pip install pytest
+- **PEP 8 Compliance:** Follow standard Python formatting standards.
+- **Type Annotations:** Add type hints (`Union`, `Optional`, `Tuple`, `Callable`) for public function signatures.
+- **Zero Heavy Dependencies:** The core package must remain lightweight and executable on standard Python installations without requiring compiled C extensions.
 
-    # For Compatibility Tests, install required module. (optional)
-    pip3 install numpy torch pandas tensorflow
-    ``` 
-
-4. **organizing files**: <br>
-    
-    ```py
-    dvs_printf/                                # add docstring for new function.
-        ├── dvs_printf/  
-        │   ├── __init__.py 
-        │   ├── __<new_function_name>.py       # name your file `__<name>.py` OR `<Function_Name>.py`
-        │   └── ...                            # To avoid conflicts when importing function
-        │
-        ├── tests/                       # Create your test.py file in either the 
-        │   ├── __init__.py              # Functionality or Compatibility folder   
-        │   │                            # based on the changes you made in dvs_printf.
-        │   ├── test_functionality/
-        │   │   ├── test_<your_function_name>.py     # new test file
-        │   │   └── ...
-        │   │
-        │   └── test_compatibility/
-        │       ├── test_<your_function_name>.py     # new test file
-        │       └── ...
-        │   
-        ├── .gitignore      # add unnecessary file name 
-        │
-        ├── README.md       # Update readme file and 
-        │                   # add new section for new function
-        └── ...
-    ```
-
-## Style Guide
-
-Please follow the PEP 8 style guide for Python code. 
-You can use tools like flake8 and black to help maintain code quality and consistency.
-
-**Please don't change the coding style in the [printf function](../dvs_printf/__printf__.py) and [otherStyles function](../dvs_printf/other_styles.py).**
-**If you make changes to existing styles or add new styles or create new functions in these files, follow the current coding style.**
-
-
-### Guidelines
-- Ensure your code follows the project's coding style.
-- Write clear and concise commit messages.
-- Update documentation as necessary.
-- Include tests for any new functionality.
-- Be respectful and collaborative in code reviews and discussions.
-
+---
 
 ## License
 
-By contributing to dvs_printf, you agree that your contributions will be licensed under the MIT License.
+By contributing to `dvs_printf`, you agree that your contributions will be licensed under the project's [Apache License 2.0](../LICENSE).
