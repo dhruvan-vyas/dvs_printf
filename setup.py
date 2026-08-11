@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name="dvs_printf",
-    version="3.1.0",
+    version="3.1.1",
     description="Animated visual appearance for console-based applications with multiple animation styles",
-    long_description=open("README.md", encoding="utf-8").read(),
+    long_description=open("PYPI_README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
 
     author="Dhruvan Vyas",

@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
 # Distribution / packaging
 build/
 develop-eggs/
@@ -21,6 +22,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+PYPI_README
 
 # Pytest / Cache
 .pytest_cache/

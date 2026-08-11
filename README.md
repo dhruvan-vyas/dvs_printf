@@ -22,8 +22,6 @@ High-performance Python console formatting engine providing animated text render
 
 </div>
 
-</br>
-</br>
 
 # About dvs_printf
 
