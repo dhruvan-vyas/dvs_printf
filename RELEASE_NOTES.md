@@ -2,7 +2,7 @@
 
 **Release Date:** August 10, 2026  
 **Package Version:** `3.1.0`  
-**License:** MIT  
+**License:** Apache 2.0 
 
 ---
 

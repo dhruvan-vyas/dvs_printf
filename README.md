@@ -13,10 +13,11 @@ High-performance Python console formatting engine providing animated text render
 [![PEP8](https://img.shields.io/badge/PEP8-compliant-brightgreen.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 <a href="https://github.com/dhruvan-vyas/dvs_printf/">
-  <img src="assets/card.png" alt="dvs_printf GitHub Banner" width="100%">
+  <img src="https://raw.githubusercontent.com/dhruvan-vyas/dvs_printf/main/assets/card.png"
+   alt="dvs_printf GitHub Banner" width="100%">
 </a>
 <a href="https://pypi.org/project/dvs-printf/">
-  <img src="assets/logo_card.png" alt="dvs_printf PYPI Banner" width="100%">
+  <img src="https://raw.githubusercontent.com/dhruvan-vyas/dvs_printf/main/assets/logo_card.png" alt="dvs_printf PYPI Banner" width="100%">
 </a>
 
 </div>
