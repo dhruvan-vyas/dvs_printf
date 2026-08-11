@@ -44,7 +44,7 @@ This Code of Conduct applies within all community spaces, and also applies when 
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at [dhruvan_vyas@github.com](mailto:dhruvan_vyas@github.com) or by opening an issue on the [GitHub Repository](https://github.com/dhruvan-vyas/dvs_printf/issues). All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at [dhruvan_vyas](https://instagram.com/dhruvan_vyas) or by opening an issue on the [GitHub Repository](https://github.com/dhruvan-vyas/dvs_printf/issues). All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the reporter of any incident.
 

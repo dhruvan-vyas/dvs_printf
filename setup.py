@@ -8,7 +8,7 @@ setup(
     long_description_content_type="text/markdown",
 
     author="Dhruvan Vyas",
-    author_email="dhruvan_vyas@github.com", 
+    # author_email="[EMAIL_ADDRESS]", 
     maintainer="Dhruvan Vyas",
     url="https://github.com/dhruvan-vyas/dvs_printf",
 
@@ -56,6 +56,13 @@ setup(
         "Topic :: Terminals",
         "Environment :: Console",
     ],
+
+    entry_points={
+        "console_scripts": [
+            "dvs_printf=dvs_printf.__main__:main",
+            "dvs-printf=dvs_printf.__main__:main",
+        ],
+    },
 
     project_urls={
         "Source": "https://github.com/dhruvan-vyas/dvs_printf",
