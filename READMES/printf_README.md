@@ -257,17 +257,16 @@ matrix_data = [
     [0.0, 0.0, 1.0]
 ]
 
-printf("Transformation Matrix:", matrix_data, style="typing", getmat="show", color="cyan")
+printf("Transformation Matrix:", matrix_data, style="async", getmat="show", color="cyan")
 ```
 
----
-
-<!-- ## Internal Architecture
+# Internal Architecture
 
 1. **Validation Gate:** Validates arguments (`_validate_style`, `_validate_speed`, `_validate_delay`, `_validate_attrs`, `_validate_getmat`) before execution.
 2. **Dynamic Speed Calc:** Speed is calculated as `target_constant / speed_multiplier`. Different styles have tuned constants so they look natural at the same speed level.
 3. **Lazy Style Loading:** Logic for complex styles (like `matrix`, `glitch`, `wave`) resides in `_other_styles.py` and is dynamically imported via `load_function()` only when explicitly called.
-4. **ANSI Buffering:** Uses low-level `sys.stdout.write` and `flush` directly for high-frequency updates, minimizing CPU overhead compared to standard Python `print()`. -->
+4. **ANSI Buffering:** Uses low-level `sys.stdout.write` and `flush` directly for high-frequency updates, minimizing CPU overhead compared to standard Python `print()`.
+
 
 ---
 *© 2026 dvs-printf Team • Professional Console Animation*

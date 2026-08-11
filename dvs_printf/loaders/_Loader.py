@@ -6,7 +6,7 @@ dynamic animation execution, and state management for showing a progress bar
 while a target function runs.
 """
 
-# import io, os, sys
+import io, os, sys
 from functools import wraps
 from time      import time, sleep
 from threading import Event, Thread
@@ -476,21 +476,21 @@ def _run_animation_loop():
                 self.exception = e
 
         # --- I/O Suppression Setup (File Descriptor Redirection) ---
-        # original_stdout_fd = os.dup(sys.stdout.fileno())
-        # original_stderr_fd = os.dup(sys.stderr.fileno())
-        # null_fd = os.open(os.devnull, os.O_WRONLY)
+        original_stdout_fd = os.dup(sys.stdout.fileno())
+        original_stderr_fd = os.dup(sys.stderr.fileno())
+        null_fd = os.open(os.devnull, os.O_WRONLY)
 
         try:
             # 1. Redirect low-level file descriptors (fd 1 & 2) to a null device.
-            # os.dup2(null_fd, sys.stdout.fileno())
-            # os.dup2(null_fd, sys.stderr.fileno())
+            os.dup2(null_fd, sys.stdout.fileno())
+            os.dup2(null_fd, sys.stderr.fileno())
 
-            # # 2. Redirect high-level Python streams to dummy buffers.
-            # original_stdout = sys.stdout
-            # original_stderr = sys.stderr
-            # dummy_stream = io.StringIO()
-            # sys.stdout = dummy_stream
-            # sys.stderr = dummy_stream
+            # 2. Redirect high-level Python streams to dummy buffers.
+            original_stdout = sys.stdout
+            original_stderr = sys.stderr
+            dummy_stream = io.StringIO()
+            sys.stdout = dummy_stream
+            sys.stderr = dummy_stream
             
             # --- Thread Execution ---
             self.task_thread      = MyThread(target=run_target_task, daemon=True)
@@ -508,13 +508,13 @@ def _run_animation_loop():
             self.exception = e
         finally:
             # --- I/O Restoration (CRITICAL STEP) ---
-            # sys.stdout = original_stdout
-            # sys.stderr = original_stderr
-            # os.dup2(original_stdout_fd, sys.stdout.fileno())
-            # os.dup2(original_stderr_fd, sys.stderr.fileno())
-            # os.close(null_fd)
-            # os.close(original_stdout_fd)
-            # os.close(original_stderr_fd)
+            sys.stdout = original_stdout
+            sys.stderr = original_stderr
+            os.dup2(original_stdout_fd, sys.stdout.fileno())
+            os.dup2(original_stderr_fd, sys.stderr.fileno())
+            os.close(null_fd)
+            os.close(original_stdout_fd)
+            os.close(original_stderr_fd)
             self.task_completed.set() # Ensure cleanup signal is sent again
 
 

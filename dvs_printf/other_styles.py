@@ -1,7 +1,7 @@
 from time import sleep
 from os import get_terminal_size
 
-def _help_():
+def help():
     tem_len_line = get_terminal_size()[0]
     mid_len_line = max(0, int(tem_len_line/2 - 12))
     from .__printf__ import printf
@@ -198,7 +198,7 @@ def otherStyles(values, style, speed, delay, stay):
                         sleep(speed)
                         print(end="\x1b[2K")
         elif style=="help":
-            _help_()
+            help()
             for i in values:print(i)
         else:
             fuzy_style=fuzzy_check(style)
@@ -208,7 +208,7 @@ def otherStyles(values, style, speed, delay, stay):
 \tstyle_list: [\n\tTyping, async, headline, newsline, mid, gunshort, snip, 
 \tleft, right, center, centerAC, centerAL, centerAR, wave,
 \tmatrix, matrix2, scatter, blink, fire, b2f, f2b, help ]\n\n
-StyleNameError: styleName '{style}' is not defined. {f"Did you mean: '{fuzy_style}'?" if fuzy_style else "!!!"}\n\n'''):
+StyleNameError: The Style '{style}' Is Not Recognized. {f'Did you mean: "{fuzy_style}"?' if fuzy_style else "!!!"}\n\n'''):
                 print(j,end="",flush=True)
                 sleep(.003)
             sleep(1)

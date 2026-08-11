@@ -62,7 +62,7 @@ class StyleNameError(dvs_BaseException, ValueError):
         Returns:
             The complete, user-friendly error string.
         """
-        message = f'{PURPLE}StyleNameError{RESET}: The style {GRAY}"{self.value}"{RESET} is not defined.'
+        message = f"{PURPLE}StyleNameError{RESET}: The Style {GRAY}'{self.value}'{RESET} Is Not Recognized."
         if self.suggestion:
                 message += f' Did you mean: {PEACH}"{self.suggestion}"{RESET}?'
         else:   message += " Please check the available styles."
