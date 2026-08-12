@@ -1,3 +1,36 @@
+# Release Notes: dvs_printf v3.1.3
+
+**Release Date:** August 12, 2026  
+**Package Version:** `3.1.3`  
+**License:** Apache 2.0 
+
+---
+
+## Summary of Changes
+
+Version 3.1.3 delivers the enterprise-grade `SafeIOSuppressor` context manager for kernel-level POSIX `os.dup2` file descriptor manipulation, emergency `atexit` restoration protection, Jupyter/Pytest environment auto-detection, comprehensive documentation overhauls, and robust CI build configuration fixes.
+
+---
+
+## Key Features and Enhancements
+
+### 1. Fail-Safe POSIX I/O Suppression (`SafeIOSuppressor`)
+- **Centralized Context Engine:** Replaced manual `os.dup2` calls in `LoadingBar` and `Spinner` with `SafeIOSuppressor`, ensuring exception-safe allocation and cleanup.
+- **Emergency `atexit` Hooks:** Registered `@atexit.register` restoration routines to guarantee file descriptors 1 (`stdout`) and 2 (`stderr`) are restored instantly if Python exits unexpectedly or receives `SIGINT` (`Ctrl+C`).
+- **Environment Auto-Detection (`suppress_io="auto"`):** Detects Jupyter Notebook (`ipykernel`), `pytest` runners, and IDE consoles, falling back to high-level stream redirection without triggering `io.UnsupportedOperation: fileno`.
+- **Configurable Modes:** Added `suppress_io` support (`"auto"`, `"fd"`, `"stream"`, `False`) to give developers fine-grained control over process-wide FD redirection vs thread-local stream isolation.
+
+### 2. Comprehensive Documentation & Sub-Module Guides
+- **Master & Sub-Module Guides:** Completely updated `README.md`, `loaders_README.md`, `colors_README.md`, and `printf_README.md`.
+- **High-Performance Benchmarks:** Documented the ~16,000ns startup latency generator engine and console safe-area bounds detection (`os.get_terminal_size()`) for PyTorch, NumPy, and Pandas matrices.
+- **2D Angular Gradient Matrix Examples:** Added code examples demonstrating rotating 2D angular spatial gradients across multi-line text grids.
+
+### 3. Packaging & CI Build Stabilization
+- **CI Build Fallback:** Updated `setup.py` with dynamic README detection (`os.path.exists("PYPI_README.md")`), preventing `FileNotFoundError` during GitHub Actions CI runs or clean git clones.
+- **Clean PyPI Wheel Distribution:** Freshly built wheel and sdist distributions.
+
+---
+
 # Release Notes: dvs_printf v3.1.0
 
 **Release Date:** August 10, 2026  

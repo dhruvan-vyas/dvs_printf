@@ -6,6 +6,24 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.1.3] - 2026-08-12
+
+### Added
+- **`SafeIOSuppressor` Context Engine**: Introduced centralized, exception-safe POSIX `os.dup2` file descriptor suppressor.
+- **Emergency `atexit` Hooks**: Added emergency cleanup registration to prevent terminal lockouts on unexpected process crashes or `SIGINT` signals.
+- **Environment Auto-Detection Matrix**: Automatic environment detection (`suppress_io="auto"`) that gracefully falls back to stream redirection in Jupyter (`ipykernel`), `pytest`, and IDE consoles.
+- **Configurable `suppress_io` Parameter**: Added `suppress_io` parameter (`"auto"`, `"fd"`, `"stream"`, `False`) to `LoadingBar`, `Spinner`, `ShowLoading`, and `ShowSpinner`.
+- **Unit Tests**: Added dedicated `test_io_suppressor.py` unit test suite.
+
+### Changed
+- **Documentation Suite**: Completely enriched `README.md`, `loaders_README.md`, `colors_README.md`, and `printf_README.md` with technical architectural benchmarks (~16,000ns startup, safe-area console bounds, 2D spatial gradients).
+- **PYPI_README Links**: Converted all relative links to absolute GitHub URLs for PyPI package rendering.
+
+### Fixed
+- **CI Build Failure**: Added dynamic README file resolution in `setup.py` (`os.path.exists("PYPI_README.md")`), fixing `FileNotFoundError` during GitHub Actions CI builds and clean clones.
+
+---
+
 ## [3.1.0] - 2025-04-20
 
 ### Added
