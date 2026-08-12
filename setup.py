@@ -7,7 +7,7 @@ with open(readme_path, encoding="utf-8") as f:
 
 setup(
     name="dvs_printf",
-    version="3.1.2",
+    version="3.1.3",
     description="Animated visual appearance for console-based applications with multiple animation styles",
     long_description=long_description,
     long_description_content_type="text/markdown",

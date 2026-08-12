@@ -24,7 +24,7 @@ share/python-wheels/
 MANIFEST
 PYPI_README.md
 solution_readme.md
-conftest.py
+
 
 # Pytest / Cache
 .pytest_cache/
