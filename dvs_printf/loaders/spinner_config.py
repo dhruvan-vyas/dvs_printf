@@ -70,6 +70,7 @@ class SpinnerConfig:
     show_progress: bool = True
     show_timer: bool = True
     reversed_timer: bool = False
+    suppress_io: Union[str, bool, None] = "auto"
 
     # Colors linked to messages/elements
     spinner_color: Union["Colors", GredinatInput] = None

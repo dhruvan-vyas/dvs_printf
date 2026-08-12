@@ -71,6 +71,7 @@ class LoadingBarConfig:
     grid_rotation_speed: int = 1
     full_screen_mode: bool = None
     FPS: int = None
+    suppress_io: Union[str, bool, None] = "auto"
 
     # Colors
     title_color:        Union["Colors", GredinatInput, ColorInput] = (255, 255, 255)

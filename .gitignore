@@ -23,6 +23,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 PYPI_README
+solution_readme
 
 # Pytest / Cache
 .pytest_cache/
