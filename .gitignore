@@ -22,8 +22,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-PYPI_README
-solution_readme
+PYPI_README.md
+solution_readme.md
 
 # Pytest / Cache
 .pytest_cache/

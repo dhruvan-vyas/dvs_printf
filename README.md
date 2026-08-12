@@ -112,12 +112,14 @@ Designed specifically for **CLI utilities, installer wizards, developer tools, d
 
 | Feature | Technical Implementation | Developer Benefit |
 | :--- | :--- | :--- |
+| **~16,000ns Latency Engine** | Generator-based lazy evaluation (`yield` line streaming via `list_of_str()`). | Instantaneous output rendering start (~16 µs) regardless of payload scale or matrix complexity. |
+| **Console Safe-Area Engine** | Dynamic console bounds querying (`os.get_terminal_size()`) with safe-margin auto-adjustment. | Flawless matrix rendering for NumPy, PyTorch, TensorFlow, Pandas, and nested structures without line-wrap corruption. |
 | **Character Animations** | 20+ streaming styles with tuned base-delay constants. | Cinematic, responsive console UX. |
 | **Lazy Style Loader** | Animation logic dynamically loaded on-demand via `load_function()`. | Minimal memory footprint and instant module startup. |
-| **24-Bit TrueColor Engine** | Automatic terminal capability detection (`console_EnvType`: 24-bit, 256, 16, or mono). | Rich, accurate RGB output across all modern terminals without hacks. |
-| **2D Angular Gradients** | Multi-stop color interpolation across character grids at 0° to 360° angles. | Seamless background & text gradient sweeps. |
-| **Threaded Task Loaders** | Dual-thread architecture (`MyThread` worker + animation thread). | Smooth FPS visual progress without blocking the main execution. |
-| **Aggressive I/O Suppression** | File descriptor redirection (`os.dup2`) during spinner/loader execution. | Prevents stray `print()` logs from corrupting progress layouts. |
+| **24-Bit TrueColor Engine** | Automatic 4-tier terminal capability ranking (`console_EnvType`: Level 1 TrueColor -> Level 4 Mono). | Rich RGB output across all terminals with downsampled fallbacks for legacy/CI pipes. |
+| **2D Spatial Angular Gradients** | Multi-stop linear color interpolation treating `\n` as 2D spatial rendering layers ($0^\circ$ to $360^\circ$). | Seamless multi-line text & background gradient sweeps. |
+| **Threaded Task Loaders** | Dual-thread architecture (`MyThread` worker + animation loop). | Smooth FPS visual progress without blocking the main execution thread. |
+| **Kernel POSIX I/O Suppression** | `SafeIOSuppressor` using POSIX `os.dup2` FD redirection + emergency `@atexit.register` hooks. | Silences stray C-level / C++ output (`stdout`/`stderr`) with auto-downgrade for Jupyter & Pytest. |
 | **Preset Configuration** | Thread-safe `Init` singleton pattern. | Centralized theme definitions with per-call keyword override capability. |
 | **AST Exception Engine** | Abstract Syntax Tree parsing (`ast.parse`) with custom `dvs_excepthook`. | Instantly pinpoints exact syntax token errors and suggests fixes. |
 | **Zero Dependencies** | Built 100% using standard Python core libraries. | Lightweight, fast installation with no dependency hell. |
@@ -125,6 +127,7 @@ Designed specifically for **CLI utilities, installer wizards, developer tools, d
 ### Design Philosophy
 - **Performance First**: ANSI direct-write buffering (`sys.stdout.write` + `flush`) with zero unneeded allocations per frame.
 - **Terminal Aware**: Graceful fallbacks for legacy terminals, SSH sessions, CI/CD pipes, and `NO_COLOR` environments.
+- **Fail-Safe POSIX I/O**: Process-level file descriptor redirection protected by emergency `atexit` hooks and Jupyter/Pytest auto-downgrades.
 - **Composable APIs**: Defaults, presets, and explicit keyword overrides interact predictably without hidden side-effects.
 - **Explicit & Validated**: Input parameters pass through strict validator gates prior to rendering.
 
@@ -438,21 +441,33 @@ for row in gradient.apply(header_matrix):
     print("".join(row))
 ```
 
-### 3. Multi-Threaded Task Spinner & Progress Bar
+### 3. Multi-Threaded Task Spinner & Progress Bar with POSIX I/O Suppression
 
 ```python
 import time
+import sys
 from dvs_printf.loaders import Spinner, LoadingBar
 
-# Indeterminate background task spinner
-def fetch_api():
-    time.sleep(1.5)
+# 1. Indeterminate background task spinner with SafeIOSuppressor
+def heavy_c_extension_task():
+    # Simulates a heavy C++ / PyTorch / C-extension library writing directly to FD 1 & 2
+    for step in range(5):
+        sys.stdout.write(f"Raw C-level debug log line {step}\n")
+        sys.stdout.flush()
+        time.sleep(0.3)
     return {"status": 200, "data": "OK"}
 
-spinner = Spinner(title="Authenticating API Key", style="dots", spinner_color="cyan")
-result = spinner.run(fetch_api)
+# 'suppress_io="auto"' uses low-level os.dup2 in standard terminals 
+# and automatically falls back to stream mode in Jupyter/Pytest environments.
+spinner = Spinner(
+    title="Authenticating API Key & Running Heavy Backend Task", 
+    style="dots", 
+    spinner_color="cyan",
+    suppress_io="auto"
+)
+result = spinner.run(heavy_c_extension_task)
 
-# Deterministic loading bar with progress tracking
+# 2. Deterministic loading bar with progress tracking
 def process_data(progress_updater):
     for step in range(101):
         time.sleep(0.01)

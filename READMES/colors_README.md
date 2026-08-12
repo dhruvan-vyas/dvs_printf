@@ -147,5 +147,33 @@ for line in gradient.apply(lines):
     print("".join(line))
 ```
 
+### Multi-Line Rotating 2D Angular Gradient Matrix
+```python
+import time
+from dvs_printf.colors import Colors
+
+# 2D spatial matrix treats '\n' as separate rendering layers
+matrix_display = [
+    "┌──────────────────────────────────────────────────────────┐",
+    "│      DVS_PRINTF 2D ANGULAR ROTATING GRADIENT MATRIX      │",
+    "├──────────────────────────────────────────────────────────┤",
+    "│ [Node 01] Status: ACTIVE    | Latency: 0.016ms           │",
+    "│ [Node 02] Status: BALANCED  | Throughput: 104,200 req/s  │",
+    "└──────────────────────────────────────────────────────────┘"
+]
+
+# Rotate 2D gradient angle continuously across 0° to 360°
+for current_angle in range(0, 360, 45):
+    gradient_theme = Colors("#FF0055", "#00FFFF", "#FFFF00", angle=current_angle)
+    # Apply spatial 2D matrix transformation
+    rendered_rows = list(gradient_theme.apply(matrix_display))
+    
+    # Print formatted matrix grid
+    print(f"\033[H\033[J--- Rotation Angle: {current_angle}° ---")
+    for row in rendered_rows:
+        print("".join(row))
+    time.sleep(0.1)
+```
+
 ---
 *© 2026 dvs-printf Team • Visual Excellence in CLI*

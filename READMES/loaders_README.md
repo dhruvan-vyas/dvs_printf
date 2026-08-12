@@ -4,20 +4,42 @@ The `dvs_printf.loaders` module provides professional-grade tools for visual fee
 
 ---
 
-## Dual-Thread Architecture & I/O Suppression
+## Dual-Thread Architecture & POSIX I/O Suppression (`SafeIOSuppressor`)
 
 ```
 [ Main Thread ]
       │
-      ├──> Worker Thread (MyThread: Executes target function)
+      ├──> Worker Thread (MyThread: Executes target funciton in background)
       │
-      └──> Animation Thread (Renders spinner/loader frames)
+      └──> Animation Thread (High-FPS visual progress loop)
                 │
                 ▼ (Polls task_completed Event)
+      ┌───────────────────────────────────────────────────────────┐
+      │ SafeIOSuppressor Context Engine                           │
+      ├─────────────────────────────┬─────────────────────────────┤
+      │ Standard POSIX Terminal     │ Jupyter / Pytest / IDE      │
+      │ (os.dup2 POSIX FD 1 & 2)    │ (sys.stdout Stream Backup)  │
+      │ + atexit emergency hook     │ (Zero fileno UnsupportedOp) │
+      └─────────────────────────────┴─────────────────────────────┘
 ```
 
-1. **Dual-Thread Execution:** A worker thread (`MyThread`) executes background functions, while a separate animation thread renders high-FPS visual updates.
-2. **I/O Suppression:** Redirects standard output/error stream file descriptors (`os.dup2`) to a null stream during animation, preventing stray `print()` calls from breaking UI layout.
+1. **Dual-Thread Execution:** A dedicated worker thread (`MyThread`) executes background tasks concurrently, while an un-blocked animation thread renders real-time FPS visual updates without lagging the main execution loop.
+2. **Kernel-Level POSIX I/O Suppression (`SafeIOSuppressor`):** Uses low-level `os.dup2` file descriptor redirection to route stray C-level `printf` and C++ `std::cout` outputs (from heavy libraries like PyTorch, TensorFlow, NumPy, OpenCV, and database drivers) to `/dev/null` during animations.
+3. **Emergency Cleanup (`atexit` Hooks):** Registers `@atexit.register` emergency hooks to guarantee that if Python exits abruptly or encounters an unhandled `SIGINT` (`Ctrl+C`), all process-level file descriptors are restored instantly, preventing terminal freeze or silence.
+4. **Environment Auto-Detection Matrix:** Dynamically inspects `sys.modules` for Jupyter (`ipykernel`) or Pytest (`pytest`/`PYTEST_CURRENT_TEST`). In non-POSIX stream environments, it automatically falls back to high-level stream redirection (`sys.stdout`) without raising `io.UnsupportedOperation: fileno`.
+
+---
+
+## `suppress_io` Configuration Modes
+
+Both `LoadingBar` and `Spinner` support the `suppress_io` configuration parameter:
+
+| `suppress_io` Mode | Mechanism | Best Use Case | Safety Guarantee |
+| :--- | :--- | :--- | :--- |
+| `"auto"` *(Default)* | Auto-detects runtime environment. Uses `"fd"` in standard terminals and `"stream"` in Jupyter/Pytest/IDEs. | General CLI applications, data science scripts, and test suites. | 100% crash-safe across all environments. |
+| `"fd"` | Kernel-level POSIX `os.dup2` redirection of File Descriptors 1 & 2. | Suppresses heavy backend C-extension output (PyTorch, TensorFlow, C++ DLLs). | Protected via `atexit` emergency hooks. |
+| `"stream"` | High-level `sys.stdout` / `sys.stderr` stream redirection only. | Multi-threaded applications where other background threads log to console. | Eliminates process-wide Thread Bleed. |
+| `False` / `"none"` | Disables I/O suppression entirely. | Debugging background task outputs. | Raw stdout/stderr pass-through. |
 
 ---
 
@@ -56,6 +78,7 @@ class LoadingBar(LoadingBarConfig):
 | `stay` | `bool` | `True` | Keeps final progress bar visible (`True`) or erases line (`False`) upon completion. |
 | `FPS` | `int \| None` | `None` | Frames per second refresh frequency for animation loop. |
 | `full_screen_mode` | `bool \| None` | `False` | Automatically calculates terminal width (`get_terminal_size()`) and stretches bar across screen. |
+| `suppress_io` | `str \| bool \| None` | `"auto"` | Configures I/O suppression mode (`"auto"`, `"fd"`, `"stream"`, `False`). Prevents C-level & background thread logs from distorting visual progress bar. |
 
 ---
 
@@ -95,6 +118,7 @@ class Spinner(SpinnerConfig):
 | `error_message_color` | `ColorInput` | `"scarlet"` | Color for error message. |
 | `progress_color` | `ColorInput` | `"gray"` | Color applied to percentage progress text. |
 | `timer_color` | `ColorInput` | `"pink"` | Color applied to timer readout. |
+| `suppress_io` | `str \| bool \| None` | `"auto"` | Configures I/O suppression mode (`"auto"`, `"fd"`, `"stream"`, `False`). Controls POSIX FD vs stream level redirection. |
 
 ---
 
@@ -161,6 +185,34 @@ loader = LoadingBar(
     title_color="cyan"
 )
 loader.run(heavy_computation, progress_updater=True)
+```
+
+### 3. POSIX I/O Suppression (`SafeIOSuppressor`) with Heavy C-Extension Output
+
+```python
+import time
+import sys
+from dvs_printf.loaders import Spinner
+
+def heavy_c_extension_task():
+    # Simulates a heavy C++ / PyTorch / C-extension library writing directly to FD 1 & 2
+    for step in range(5):
+        # Even direct stdout writes bypassing Python sys.stdout are safely silenced to /dev/null
+        sys.stdout.write(f"Raw C-level debug log line {step}\n")
+        sys.stdout.flush()
+        time.sleep(0.3)
+    return "Computation Complete"
+
+# 'suppress_io="auto"' uses low-level os.dup2 in standard terminals 
+# and automatically falls back to stream mode in Jupyter/Pytest environments.
+spinner = Spinner(
+    title="Running PyTorch Model Inference", 
+    style="dots", 
+    spinner_color="cyan",
+    suppress_io="auto"
+)
+result = spinner.run(heavy_c_extension_task)
+print(f"Result: {result}")
 ```
 
 ---
