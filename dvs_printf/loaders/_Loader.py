@@ -30,6 +30,7 @@ from .system_tools     import (
     bg_color_function,
     color_function, _write, _flush
 )
+from .io_suppressor    import SafeIOSuppressor
 
 
 def ShowLoading(
@@ -51,6 +52,7 @@ def ShowLoading(
         stay: Optional[bool] = None,
         FPS: Optional[int] = None,
         full_screen_mode: Optional[bool] = None,
+        suppress_io: Optional[Union[str, bool]] = "auto",
         title_color: ColorInput | GredinatInput | None = (255, 255, 255),
         bar_color: Optional[ColorInput] = "green",
         unfilled_bar_color: Optional[ColorInput] = "#2B2B2B",
@@ -475,23 +477,12 @@ def _run_animation_loop():
             except Exception as e: 
                 self.exception = e
 
-        # --- I/O Suppression Setup (File Descriptor Redirection) ---
-        original_stdout_fd = os.dup(sys.stdout.fileno())
-        original_stderr_fd = os.dup(sys.stderr.fileno())
-        null_fd = os.open(os.devnull, os.O_WRONLY)
+        # --- I/O Suppression Setup (SafeIOSuppressor Context Manager) ---
+        suppress_mode = getattr(self, 'suppress_io', 'auto')
+        if suppress_mode is None:
+            suppress_mode = 'auto'
 
-        try:
-            # 1. Redirect low-level file descriptors (fd 1 & 2) to a null device.
-            os.dup2(null_fd, sys.stdout.fileno())
-            os.dup2(null_fd, sys.stderr.fileno())
-
-            # 2. Redirect high-level Python streams to dummy buffers.
-            original_stdout = sys.stdout
-            original_stderr = sys.stderr
-            dummy_stream = io.StringIO()
-            sys.stdout = dummy_stream
-            sys.stderr = dummy_stream
-            
+        with SafeIOSuppressor(mode=suppress_mode):
             # --- Thread Execution ---
             self.task_thread      = MyThread(target=run_target_task, daemon=True)
             self.animation_thread = Thread(target=self._Get_Animation_Runner())
@@ -503,19 +494,7 @@ def _run_animation_loop():
             self.task_thread.join(timeout=self.timeout)
             self.task_completed.set() # Signal animation thread to stop
             self.animation_thread.join()
-       
-        except Exception as e:
-            self.exception = e
-        finally:
-            # --- I/O Restoration (CRITICAL STEP) ---
-            sys.stdout = original_stdout
-            sys.stderr = original_stderr
-            os.dup2(original_stdout_fd, sys.stdout.fileno())
-            os.dup2(original_stderr_fd, sys.stderr.fileno())
-            os.close(null_fd)
-            os.close(original_stdout_fd)
-            os.close(original_stderr_fd)
-            self.task_completed.set() # Ensure cleanup signal is sent again
+            self.task_completed.set()
 
 
         # --- Post-Execution Check ---
@@ -551,6 +530,3 @@ def _run_animation_loop():
         def wrapper(*args, **kwargs):
             return self.run(target, *args, **kwargs)
         return wrapper
-    
-    # def __delattr__(self, name):
-    #     return super().__delattr__(name)

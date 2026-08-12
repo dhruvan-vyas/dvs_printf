@@ -4,6 +4,7 @@ include pyproject.toml
 include setup.py
 include LICENSE
 include README.md
+include PYPI_README.md
 include CHANGELOG.md
 include RELEASE_NOTES.md
 graft assets

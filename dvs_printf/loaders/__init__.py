@@ -34,6 +34,7 @@ is configured to show percentages.
 """
 
 from .system_tools   import ProgressUpdater
+from .io_suppressor   import SafeIOSuppressor
 from ._Loader        import LoadingBar, ShowLoading, showLoading
 from .loader_config  import LoadingBarConfig
 from .loader_frems   import LoaderFrems
@@ -53,5 +54,6 @@ __all__ = [
     "SpinnerConfig", 
     "SpinnerFrems",
 
-    "ProgressUpdater", 
+    "ProgressUpdater",
+    "SafeIOSuppressor",
 ]

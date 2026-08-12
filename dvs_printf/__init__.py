@@ -54,7 +54,7 @@ __all__ = (
 
 ) 
 
-__version__ = '3.1.0'
+__version__ = '3.1.3'
 __author__  = 'Dhruvan Vyas'
 
 from .__printf__ import printf, list_of_str

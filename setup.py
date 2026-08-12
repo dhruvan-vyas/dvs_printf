@@ -1,10 +1,15 @@
+import os
 from setuptools import setup, find_packages
+
+readme_path = "PYPI_README.md" if os.path.exists("PYPI_README.md") else "README.md"
+with open(readme_path, encoding="utf-8") as f:
+    long_description = f.read()
 
 setup(
     name="dvs_printf",
-    version="3.1.0",
+    version="3.1.3",
     description="Animated visual appearance for console-based applications with multiple animation styles",
-    long_description=open("README.md", encoding="utf-8").read(),
+    long_description=long_description,
     long_description_content_type="text/markdown",
 
     author="Dhruvan Vyas",

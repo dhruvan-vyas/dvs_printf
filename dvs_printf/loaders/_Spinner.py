@@ -16,6 +16,7 @@ from typing      import Callable, Any, Iterable, Mapping, Optional, Union, Tuple
 from .spinner_config import  ColorInput, GredinatInput, SpinnerConfig
 from .spinner_frems  import  Get_SPINNERS, SpinnerFrems
 from .system_tools   import  color_function, MyThread, ProgressUpdater, _write, _flush
+from .io_suppressor  import  SafeIOSuppressor
 from ..exceptions    import (dvs_BaseException,
                              TimeOutError, 
                              SpinnerValueError, 
@@ -53,6 +54,7 @@ def ShowSpinner(
         show_progress:  bool = True,
         show_timer:     bool = True,
         reversed_timer: bool = False,
+        suppress_io:    Union[str, bool, None] = "auto",
 
         # Colors linked to messages/elements,
         spinner_color:       Colors | ColorInput | ColorSequence  = None,
@@ -332,23 +334,12 @@ def _run_animation_loop():
             except Exception as e:
                 self.exception = e
 
-        # --- I/O Suppression Setup (File Descriptor Redirection) ---
-        original_stdout_fd = os.dup(sys.stdout.fileno())
-        original_stderr_fd = os.dup(sys.stderr.fileno())
-        null_fd = os.open(os.devnull, os.O_WRONLY)
+        # --- I/O Suppression Setup (SafeIOSuppressor Context Manager) ---
+        suppress_mode = getattr(self, 'suppress_io', 'auto')
+        if suppress_mode is None:
+            suppress_mode = 'auto'
 
-        try:
-            # 1. Redirect low-level file descriptors (fd 1 & 2) to a null device.
-            os.dup2(null_fd, sys.stdout.fileno())
-            os.dup2(null_fd, sys.stderr.fileno())
-
-            # 2. Redirect high-level Python streams to dummy buffers.
-            original_stdout = sys.stdout
-            original_stderr = sys.stderr
-            dummy_stream = io.StringIO()
-            sys.stdout = dummy_stream
-            sys.stderr = dummy_stream
-
+        with SafeIOSuppressor(mode=suppress_mode):
             self.start_time = time()
 
             self.task_thread = MyThread(target=wrapped_target, daemon=True)
@@ -361,20 +352,7 @@ def _run_animation_loop():
             self.task_thread.join(timeout=self.timeout)
             self.task_completed.set() # Signal animation thread to stop
             self.animation_thread.join(timeout=self.timeout) # Wait for animation cleanup
-
-        except Exception as e:
-            self.exception = e
-
-        finally:
-                # --- I/O Restoration (CRITICAL STEP) ---
-                sys.stdout = original_stdout
-                sys.stderr = original_stderr
-                os.dup2(original_stdout_fd, sys.stdout.fileno())
-                os.dup2(original_stderr_fd, sys.stderr.fileno())
-                os.close(null_fd)
-                os.close(original_stdout_fd)
-                os.close(original_stderr_fd)
-                self.task_completed.set() # Final cleanup signal
+            self.task_completed.set()
 
         # --- Post-Execution Check and Error Handling ---
         
